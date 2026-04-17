@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>cafemocha9 — iOS Developer</title>
+  <meta name="description" content="スペシャルティコーヒー業界出身のiOSアプリ開発者。Coffee Paletteを開発。">
+  <meta property="og:title" content="cafemocha9 — iOS Developer">
+  <meta property="og:description" content="スペシャルティコーヒー業界出身のiOSアプリ開発者。">
+  <meta property="og:type" content="website">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Noto+Sans+JP:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #f8f6f2;
+      --bg-card:   #f0ede7;
+      --bg-card2:  #ece9e3;
+      --border:    rgba(60,45,30,0.12);
+      --border-mid:rgba(60,45,30,0.22);
+      --text-primary:   #1c1814;
+      --text-secondary: #4a4035;
+      --text-muted:     #7a6e63;
+      --accent:         #6b3a1f;
+      --accent-hover:   #8b4513;
+      --accent-light:   rgba(107,58,31,0.08);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', 'Noto Sans JP', sans-serif;
+      background: var(--bg);
+      color: var(--text-primary);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Nav ── */
+    nav {
+      border-bottom: 0.5px solid var(--border);
+      position: sticky;
+      top: 0;
+      background: var(--bg);
+      z-index: 100;
+    }
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 40px;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    .nav-logo {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--text-primary);
+      letter-spacing: 0.04em;
+      text-decoration: none;
+    }
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      align-items: center;
+    }
+    .nav-links a {
+      font-size: 13px;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text-primary); }
+    .lang-btn {
+      font-size: 12px;
+      padding: 4px 12px;
+      border-radius: 20px;
+      border: 0.5px solid var(--border-mid);
+      background: transparent;
+      color: var(--text-secondary);
+      cursor: pointer;
+      font-family: 'Inter', 'Noto Sans JP', sans-serif;
+      transition: background 0.2s;
+    }
+    .lang-btn:hover { background: var(--bg-card); }
+
+    /* ── Layout ── */
+    .section {
+      padding: 80px 40px;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    .divider {
+      height: 0.5px;
+      background: var(--border);
+      margin: 0 40px;
+    }
+    .section-label {
+      font-size: 20px;
+      letter-spacing: 0.14em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 40px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 0.5px;
+      background: var(--border);
+    }
+
+    /* ── Hero ── */
+    .hero {
+      padding: 100px 40px 84px;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    .hero-title {
+      font-size: 40px;
+      font-weight: 500;
+      line-height: 1.22;
+      color: var(--text-primary);
+      margin-bottom: 20px;
+    }
+    .hero-title span { color: var(--accent); }
+    .hero-sub {
+      font-size: 15px;
+      color: var(--text-secondary);
+      line-height: 1.75;
+      margin-bottom: 36px;
+    }
+    .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+    .btn-primary {
+      padding: 11px 24px;
+      font-size: 14px;
+      border-radius: 6px;
+      background: var(--accent);
+      color: #f8f6f2;
+      border: none;
+      cursor: pointer;
+      font-weight: 500;
+      font-family: 'Inter', 'Noto Sans JP', sans-serif;
+      transition: background 0.2s;
+    }
+    .btn-primary:hover { background: var(--accent-hover); }
+    .btn-secondary {
+      padding: 11px 24px;
+      font-size: 14px;
+      border-radius: 6px;
+      background: transparent;
+      color: var(--text-secondary);
+      border: 0.5px solid var(--border-mid);
+      cursor: pointer;
+      font-family: 'Inter', 'Noto Sans JP', sans-serif;
+      transition: all 0.2s;
+    }
+    .btn-secondary:hover { background: var(--bg-card); color: var(--text-primary); }
+
+    /* ── About ── */
+    .about-text {
+      font-size: 15px;
+      color: var(--text-secondary);
+      line-height: 1.85;
+      margin-bottom: 14px;
+    }
+    .about-text strong { color: var(--text-primary); font-weight: 500; }
+
+    /* ── Apps ── */
+    .app-card {
+      background: var(--bg-card);
+      border-radius: 12px;
+      border: 0.5px solid var(--border);
+      padding: 28px;
+      margin-bottom: 14px;
+      display: flex;
+      gap: 24px;
+      align-items: flex-start;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .app-card:hover { border-color: var(--border-mid); background: var(--bg-card2); }
+    .app-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 13px;
+      background: var(--bg-card2);
+      border: 0.5px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      flex-shrink: 0;
+    }
+    .app-info { flex: 1; }
+    .app-name {
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--text-primary);
+      margin-bottom: 6px;
+    }
+    .app-desc {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.65;
+      margin-bottom: 16px;
+    }
+    .app-tags { display: flex; gap: 7px; flex-wrap: wrap; margin-bottom: 16px; }
+    .tag {
+      font-size: 11px;
+      padding: 3px 9px;
+      border-radius: 4px;
+      background: var(--accent-light);
+      color: var(--accent);
+      border: 0.5px solid rgba(107,58,31,0.18);
+      font-family: 'Inter', monospace;
+    }
+    .app-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      color: var(--accent);
+      text-decoration: none;
+      border: 0.5px solid rgba(107,58,31,0.3);
+      padding: 7px 15px;
+      border-radius: 6px;
+      transition: all 0.2s;
+    }
+    .app-link:hover { background: var(--accent-light); }
+    .app-policy-link {
+      display: block;
+      margin-top: 10px;
+      font-size: 11px;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .app-policy-link:hover { color: var(--text-secondary); }
+
+    .wip-card {
+      background: transparent;
+      border: 0.5px dashed var(--border-mid);
+      border-radius: 12px;
+      padding: 24px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+    .wip-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+    /* ── Contact ── */
+    .contact-form { display: flex; flex-direction: column; gap: 14px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .form-group { display: flex; flex-direction: column; gap: 6px; }
+    .form-group label {
+      font-size: 12px;
+      color: var(--text-muted);
+      letter-spacing: 0.04em;
+    }
+    .form-group input,
+    .form-group textarea {
+      background: var(--bg-card);
+      border: 0.5px solid var(--border-mid);
+      border-radius: 6px;
+      padding: 10px 14px;
+      font-size: 14px;
+      color: var(--text-primary);
+      font-family: 'Inter', 'Noto Sans JP', sans-serif;
+      transition: border-color 0.2s;
+      resize: none;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+    .form-group textarea { min-height: 100px; }
+    .submit-btn {
+      padding: 11px 28px;
+      font-size: 14px;
+      font-weight: 500;
+      background: var(--accent);
+      color: #f8f6f2;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      align-self: flex-start;
+      font-family: 'Inter', 'Noto Sans JP', sans-serif;
+      transition: background 0.2s;
+    }
+    .submit-btn:hover { background: var(--accent-hover); }
+
+    /* ── Footer ── */
+    footer {
+      padding: 28px 40px;
+      border-top: 0.5px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    .footer-copy { font-size: 12px; color: var(--text-muted); }
+    .footer-link {
+      font-size: 12px;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-link:hover { color: var(--text-secondary); }
+
+    /* ── i18n ── */
+    .ja { display: block; }
+    .en { display: none; }
+    .show-en .ja { display: none; }
+    .show-en .en { display: block; }
+    span.ja { display: inline; }
+    span.en { display: none; }
+    .show-en span.ja { display: none; }
+    .show-en span.en { display: inline; }
+
+    /* ── Responsive ── */
+    @media (max-width: 600px) {
+      .nav-inner { padding: 16px 20px; }
+      .hero { padding: 64px 20px 60px; }
+      .hero-title { font-size: 30px; }
+      .section { padding: 60px 20px; }
+      .divider { margin: 0 20px; }
+      .form-row { grid-template-columns: 1fr; }
+      footer { padding: 24px 20px; }
+      .app-card { flex-direction: column; gap: 16px; }
+    }
+  </style>
+</head>
+<body id="pg">
+
+<!-- Nav -->
+<nav>
+  <div class="nav-inner">
+    <a class="nav-logo" href="#">cafemocha9</a>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#apps">Apps</a>
+      <a href="#contact"><span class="ja">Contact</span><span class="en">Contact</span></a>
+      <button class="lang-btn" onclick="toggleLang()" id="langBtn">EN</button>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero -->
+<div class="hero">
+  <h1 class="hero-title">
+    <span class="ja">コーヒーの知識と<br><span>コードで作る</span><br>プロダクト</span>
+    <span class="en">Crafting apps at the<br>intersection of<br><span>coffee & code</span></span>
+  </h1>
+  <p class="hero-sub">
+    <span class="ja">スペシャルティコーヒー業界のバックグラウンドを持つ、iOS アプリ開発者。ドメイン知識を活かしたプロダクトを独自開発しています。</span>
+    <span class="en">iOS developer with a background in the specialty coffee industry. Building niche apps powered by deep domain expertise.</span>
+  </p>
+  <div class="hero-btns">
+    <button class="btn-primary" onclick="location.href='#apps'">
+      <span class="ja">アプリを見る</span><span class="en">View Apps</span>
+    </button>
+    <button class="btn-secondary" onclick="location.href='#contact'">
+      <span class="ja">お問い合わせ</span><span class="en">Get in touch</span>
+    </button>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- About -->
+<section class="section" id="about">
+  <p class="section-label"><span class="ja">自己紹介</span><span class="en">About</span></p>
+  <p class="about-text">
+    <span class="ja">コーヒーの仕事をしていると記録したいことが積み重なる。使った豆、感じた風味、次に試したい事。既存のアプリではどれもしっくりこなかった。それが開発のきっかけだった。</span>
+    <span class="en">Working in coffee means accumulating things worth remembering — the beans, the flavors, what to try next. Nothing out there felt quite right. So I built it myself.</span>
+  </p>
+  <p class="about-text">
+    <span class="ja"><strong>スペシャルティコーヒー業界</strong>での実務経験をベースに、2026年よりiOSアプリ開発を開始。企画・実装・リリースまでを個人で一貫して担い、現在「Coffee Palette」をApp Storeにて提供中。</span>
+    <span class="en">Drawing on a professional background in the <strong>specialty coffee industry</strong>, I started iOS development in 2026. As an independent developer, I handle everything from concept to release. Coffee Palette is now available on the App Store.</span>
+  </p>
+</section>
+
+<div class="divider"></div>
+
+<!-- Apps -->
+<section class="section" id="apps">
+  <p class="section-label"><span class="ja">アプリ</span><span class="en">Apps</span></p>
+
+  <div class="app-card">
+    <div class="app-icon">☕</div>
+    <div class="app-info">
+      <p class="app-name">Coffee Palette</p>
+      <p class="app-desc">
+        <span class="ja">スペシャルティコーヒーの記録・分析・シェアができるiOSアプリ。7つのフレーバーホイールと QRコード共有機能を搭載。</span>
+        <span class="en">An iOS app for logging, analyzing, and sharing specialty coffee. Features a 7-flavor wheel and QR code sharing.</span>
+      </p>
+      <div class="app-tags">
+        <span class="tag">iOS</span>
+        <span class="tag">React Native</span>
+        <span class="tag">Expo</span>
+        <span class="tag">TypeScript</span>
+      </div>
+      <!-- App Store URL を取得後に href を更新してください -->
+      <a class="app-link" href="#" target="_blank" rel="noopener">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        <span class="ja">App Store で見る</span><span class="en">View on App Store</span>
+      </a>
+      <a class="app-policy-link" href="https://cafemocha9.github.io/privacy-policy/" target="_blank" rel="noopener">
+        <span class="ja">プライバシーポリシー</span><span class="en">Privacy Policy</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="wip-card">
+    <div class="wip-dot"></div>
+    <span>
+      <span class="ja">次のアプリを開発中 — Coming soon</span>
+      <span class="en">Next app in development — Coming soon</span>
+    </span>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- Contact -->
+<section class="section" id="contact">
+  <p class="section-label"><span class="ja">お問い合わせ</span><span class="en">Contact</span></p>
+  <div class="contact-form">
+    <div class="form-row">
+      <div class="form-group">
+        <label><span class="ja">お名前</span><span class="en">Name</span></label>
+        <input type="text" name="name" autocomplete="name">
+      </div>
+      <div class="form-group">
+        <label><span class="ja">メールアドレス</span><span class="en">Email</span></label>
+        <input type="email" name="email" autocomplete="email">
+      </div>
+    </div>
+    <div class="form-group">
+      <label><span class="ja">メッセージ</span><span class="en">Message</span></label>
+      <textarea name="message"></textarea>
+    </div>
+    <button class="submit-btn" onclick="sendMail()">
+      <span class="ja">送信する</span><span class="en">Send</span>
+    </button>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- Footer -->
+<footer>
+  <span class="footer-copy">© 2026 cafemocha9</span>
+</footer>
+
+<script>
+  function toggleLang() {
+    const pg = document.getElementById('pg');
+    const btn = document.getElementById('langBtn');
+    pg.classList.toggle('show-en');
+    btn.textContent = pg.classList.contains('show-en') ? 'JA' : 'EN';
+  }
+
+  function sendMail() {
+    const name    = document.querySelector('input[name="name"]').value.trim();
+    const email   = document.querySelector('input[name="email"]').value.trim();
+    const message = document.querySelector('textarea[name="message"]').value.trim();
+    if (!name || !email || !message) {
+      alert('すべての項目を入力してください。\nPlease fill in all fields.');
+      return;
+    }
+    const subject = encodeURIComponent('お問い合わせ / Contact from ' + name);
+    const body    = encodeURIComponent('Name: ' + name + '\nEmail: ' + email + '\n\n' + message);
+    window.location.href = 'mailto:cafemocha9.app.dev@gmail.com?subject=' + subject + '&body=' + body;
+  }
+</script>
+
+</body>
+</html>
