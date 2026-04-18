@@ -1,472 +1,744 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>cafemocha9 — iOS Developer</title>
-  <meta name="description" content="スペシャルティコーヒー業界出身のiOSアプリ開発者。Coffee Paletteを開発。">
-  <meta property="og:title" content="cafemocha9 — iOS Developer">
-  <meta property="og:description" content="スペシャルティコーヒー業界出身のiOSアプリ開発者。">
-  <meta property="og:type" content="website">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Noto+Sans+JP:wght@400;500&display=swap" rel="stylesheet">
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>cafemocha9 — iOS Developer</title>
+<meta name="description" content="スペシャルティコーヒー業界出身のiOSアプリ開発者。Coffee Paletteを開発。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300&family=Inter:wght@400;500&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    :root {
-      --bg:        #f8f6f2;
-      --bg-card:   #f0ede7;
-      --bg-card2:  #ece9e3;
-      --border:    rgba(60,45,30,0.12);
-      --border-mid:rgba(60,45,30,0.22);
-      --text-primary:   #1c1814;
-      --text-secondary: #4a4035;
-      --text-muted:     #7a6e63;
-      --accent:         #6b3a1f;
-      --accent-hover:   #8b4513;
-      --accent-light:   rgba(107,58,31,0.08);
-    }
+  :root {
+    --bg:              #fafaf8;
+    --bg-elev:         #f3f2ee;
+    --rule:            rgba(20,18,15,0.08);
+    --rule-strong:     rgba(20,18,15,0.18);
+    --ink:             #141210;
+    --ink-soft:        #3a3631;
+    --ink-mute:        #8a837a;
+    --ink-faint:       #b5ada2;
+    --accent:          #141210;
+    --accent-soft:     rgba(20,18,15,0.04);
 
-    html { scroll-behavior: smooth; }
+    --serif:  'Fraunces', 'Noto Sans JP', serif;
+    --sans:   'Inter', 'Noto Sans JP', sans-serif;
 
-    body {
-      font-family: 'Inter', 'Noto Sans JP', sans-serif;
-      background: var(--bg);
-      color: var(--text-primary);
-      line-height: 1.7;
-      -webkit-font-smoothing: antialiased;
-    }
+    /* 8pt grid */
+    --s-1: 8px;
+    --s-2: 16px;
+    --s-3: 24px;
+    --s-4: 32px;
+    --s-5: 48px;
+    --s-6: 64px;
+    --s-7: 96px;
+    --s-8: 128px;
+    --s-9: 160px;
+  }
 
-    /* ── Nav ── */
-    nav {
-      border-bottom: 0.5px solid var(--border);
-      position: sticky;
-      top: 0;
-      background: var(--bg);
-      z-index: 100;
-    }
-    .nav-inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 20px 40px;
-      max-width: 700px;
-      margin: 0 auto;
-    }
-    .nav-logo {
-      font-size: 15px;
-      font-weight: 500;
-      color: var(--text-primary);
-      letter-spacing: 0.04em;
-      text-decoration: none;
-    }
-    .nav-links {
-      display: flex;
-      gap: 28px;
-      align-items: center;
-    }
-    .nav-links a {
-      font-size: 13px;
-      color: var(--text-muted);
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-    .nav-links a:hover { color: var(--text-primary); }
-    .lang-btn {
-      font-size: 12px;
-      padding: 4px 12px;
-      border-radius: 20px;
-      border: 0.5px solid var(--border-mid);
-      background: transparent;
-      color: var(--text-secondary);
-      cursor: pointer;
-      font-family: 'Inter', 'Noto Sans JP', sans-serif;
-      transition: background 0.2s;
-    }
-    .lang-btn:hover { background: var(--bg-card); }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--sans);
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+    font-weight: 400;
+  }
 
-    /* ── Layout ── */
-    .section {
-      padding: 80px 40px;
-      max-width: 700px;
-      margin: 0 auto;
-    }
-    .divider {
-      height: 0.5px;
-      background: var(--border);
-      margin: 0 40px;
-    }
-    .section-label {
-      font-size: 20px;
-      letter-spacing: 0.14em;
-      color: var(--accent);
-      text-transform: uppercase;
-      margin-bottom: 40px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-    .section-label::after {
-      content: '';
-      flex: 1;
-      height: 0.5px;
-      background: var(--border);
-    }
+  ::selection { background: var(--ink); color: var(--bg); }
 
-    /* ── Hero ── */
-    .hero {
-      padding: 100px 40px 84px;
-      max-width: 700px;
-      margin: 0 auto;
-    }
-    .hero-title {
-      font-size: 40px;
-      font-weight: 500;
-      line-height: 1.22;
-      color: var(--text-primary);
-      margin-bottom: 20px;
-    }
-    .hero-title span { color: var(--accent); }
-    .hero-sub {
-      font-size: 15px;
-      color: var(--text-secondary);
-      line-height: 1.75;
-      margin-bottom: 36px;
-    }
-    .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
-    .btn-primary {
-      padding: 11px 24px;
-      font-size: 14px;
-      border-radius: 6px;
-      background: var(--accent);
-      color: #f8f6f2;
-      border: none;
-      cursor: pointer;
-      font-weight: 500;
-      font-family: 'Inter', 'Noto Sans JP', sans-serif;
-      transition: background 0.2s;
-    }
-    .btn-primary:hover { background: var(--accent-hover); }
-    .btn-secondary {
-      padding: 11px 24px;
-      font-size: 14px;
-      border-radius: 6px;
-      background: transparent;
-      color: var(--text-secondary);
-      border: 0.5px solid var(--border-mid);
-      cursor: pointer;
-      font-family: 'Inter', 'Noto Sans JP', sans-serif;
-      transition: all 0.2s;
-    }
-    .btn-secondary:hover { background: var(--bg-card); color: var(--text-primary); }
+  /* ── Shell (single axis) ── */
+  .shell {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 var(--s-4);
+  }
 
-    /* ── About ── */
-    .about-text {
-      font-size: 15px;
-      color: var(--text-secondary);
-      line-height: 1.85;
-      margin-bottom: 14px;
-    }
-    .about-text strong { color: var(--text-primary); font-weight: 500; }
+  /* ── Nav ── */
+  nav {
+    position: sticky;
+    top: 0;
+    background: rgba(250,250,248,0.85);
+    backdrop-filter: saturate(160%) blur(12px);
+    -webkit-backdrop-filter: saturate(160%) blur(12px);
+    border-bottom: 0.5px solid var(--rule);
+    z-index: 100;
+  }
+  .nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--s-3) 0;
+  }
+  .nav-logo {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 16px;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .nav-links {
+    display: flex;
+    gap: var(--s-4);
+    align-items: center;
+  }
+  .nav-links a {
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    text-decoration: none;
+    transition: color 0.25s ease;
+  }
+  .nav-links a:hover { color: var(--ink); }
+  .lang-btn {
+    font-family: var(--sans);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    padding: 5px 10px;
+    border-radius: 2px;
+    border: 0.5px solid var(--rule-strong);
+    background: transparent;
+    color: var(--ink-soft);
+    cursor: pointer;
+    transition: background 0.25s ease, color 0.25s ease;
+  }
+  .lang-btn:hover { background: var(--ink); color: var(--bg); border-color: var(--ink); }
 
-    /* ── Apps ── */
-    .app-card {
-      background: var(--bg-card);
-      border-radius: 12px;
-      border: 0.5px solid var(--border);
-      padding: 28px;
-      margin-bottom: 14px;
-      display: flex;
-      gap: 24px;
+  /* ── Section label (reusable unit → repetition) ── */
+  .eyebrow {
+    font-family: var(--sans);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    display: flex;
+    align-items: center;
+    gap: var(--s-2);
+    margin-bottom: var(--s-6);
+  }
+  .eyebrow::before {
+    content: '';
+    display: inline-block;
+    width: 24px;
+    height: 0.5px;
+    background: var(--ink-mute);
+  }
+  .eyebrow .num {
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 300;
+    letter-spacing: 0;
+    text-transform: none;
+    color: var(--ink-faint);
+    font-size: 13px;
+    margin-left: auto;
+  }
+
+  /* ── Hero ── */
+  .hero {
+    padding: var(--s-9) 0 var(--s-8);
+    position: relative;
+  }
+  .hero-meta {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    margin-bottom: var(--s-5);
+    display: flex;
+    align-items: center;
+    gap: var(--s-2);
+  }
+  .hero-meta .dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: #4a7c3f;
+    box-shadow: 0 0 0 3px rgba(74,124,63,0.15);
+  }
+  .hero-title {
+    font-family: var(--serif);
+    font-weight: 300;
+    font-size: clamp(44px, 7.5vw, 72px);
+    line-height: 1.02;
+    letter-spacing: -0.03em;
+    color: var(--ink);
+    margin-bottom: var(--s-5);
+    font-variation-settings: "opsz" 72;
+  }
+  .hero-title em {
+    font-style: italic;
+    font-weight: 300;
+    color: var(--ink-mute);
+  }
+  .hero-sub {
+    font-size: 16px;
+    color: var(--ink-soft);
+    line-height: 1.7;
+    max-width: 34em;
+    margin-bottom: var(--s-6);
+    font-weight: 400;
+  }
+  .hero-actions {
+    display: flex;
+    gap: var(--s-4);
+    align-items: center;
+  }
+  .link-primary {
+    font-size: 13px;
+    letter-spacing: 0.04em;
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 0.5px solid var(--ink);
+    padding-bottom: 4px;
+    transition: opacity 0.25s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .link-primary:hover { opacity: 0.55; }
+  .link-primary svg { transition: transform 0.3s ease; }
+  .link-primary:hover svg { transform: translateX(3px); }
+  .link-muted {
+    font-size: 13px;
+    color: var(--ink-mute);
+    text-decoration: none;
+    transition: color 0.25s ease;
+  }
+  .link-muted:hover { color: var(--ink); }
+
+  /* Hero corner index */
+  .hero-index {
+    position: absolute;
+    top: var(--s-9);
+    right: 0;
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 300;
+    font-size: 13px;
+    color: var(--ink-faint);
+    text-align: right;
+    line-height: 1.8;
+  }
+
+  /* ── Rule ── */
+  .rule {
+    height: 0.5px;
+    background: var(--rule);
+    margin: 0;
+  }
+
+  /* ── Section ── */
+  section.block {
+    padding: var(--s-8) 0;
+  }
+
+  /* ── About ── */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--s-4);
+  }
+  .about-text {
+    font-family: var(--serif);
+    font-weight: 300;
+    font-size: 22px;
+    line-height: 1.55;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    max-width: 28em;
+  }
+  .about-text em {
+    font-style: italic;
+    color: var(--ink-mute);
+  }
+  .about-body {
+    font-size: 15px;
+    color: var(--ink-soft);
+    line-height: 1.8;
+    max-width: 34em;
+    margin-top: var(--s-3);
+  }
+
+  /* Facts strip */
+  .facts {
+    margin-top: var(--s-7);
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--s-3);
+    border-top: 0.5px solid var(--rule);
+    padding-top: var(--s-5);
+  }
+  .fact-label {
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    margin-bottom: var(--s-1);
+  }
+  .fact-value {
+    font-family: var(--serif);
+    font-weight: 300;
+    font-size: 18px;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+  }
+  .fact-value em { font-style: italic; color: var(--ink-mute); font-size: 14px; }
+
+  /* ── Apps ── */
+  .work-item {
+    display: grid;
+    grid-template-columns: 48px 1fr auto;
+    gap: var(--s-4);
+    align-items: baseline;
+    padding: var(--s-5) 0;
+    border-top: 0.5px solid var(--rule);
+    transition: background 0.3s ease;
+    position: relative;
+  }
+  .work-item:first-of-type { border-top: 0.5px solid var(--ink); }
+  .work-item:last-of-type { border-bottom: 0.5px solid var(--rule); }
+  .work-item:hover { background: var(--accent-soft); }
+  .work-num {
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 300;
+    font-size: 13px;
+    color: var(--ink-faint);
+    letter-spacing: 0;
+  }
+  .work-body { display: flex; flex-direction: column; gap: var(--s-2); }
+  .work-title {
+    font-family: var(--serif);
+    font-weight: 300;
+    font-size: 28px;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    line-height: 1.2;
+  }
+  .work-desc {
+    font-size: 14px;
+    color: var(--ink-soft);
+    line-height: 1.7;
+    max-width: 32em;
+  }
+  .work-meta {
+    display: flex;
+    gap: var(--s-3);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    margin-top: var(--s-1);
+  }
+  .work-meta span + span::before {
+    content: '·';
+    margin-right: var(--s-3);
+    color: var(--ink-faint);
+  }
+  .work-meta span + span { margin-left: calc(var(--s-3) * -1); padding-left: 0; }
+  .work-links {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-1);
+    align-items: flex-end;
+    text-align: right;
+    padding-top: 8px;
+  }
+  .work-links a {
+    font-size: 12px;
+    color: var(--ink);
+    text-decoration: none;
+    letter-spacing: 0.04em;
+    transition: color 0.25s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .work-links a:hover { color: var(--ink-mute); }
+  .work-links a.sub { color: var(--ink-mute); font-size: 11px; }
+  .work-links a.sub:hover { color: var(--ink); }
+
+  .wip {
+    display: grid;
+    grid-template-columns: 48px 1fr auto;
+    gap: var(--s-4);
+    align-items: baseline;
+    padding: var(--s-5) 0;
+    border-bottom: 0.5px solid var(--rule);
+    color: var(--ink-mute);
+  }
+  .wip-num {
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 300;
+    font-size: 13px;
+    color: var(--ink-faint);
+  }
+  .wip-title {
+    font-family: var(--serif);
+    font-weight: 300;
+    font-style: italic;
+    font-size: 22px;
+    color: var(--ink-mute);
+    letter-spacing: -0.01em;
+  }
+  .wip-status {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .wip-status::before {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--ink-faint);
+    animation: pulse 2.4s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.25; } }
+
+  /* ── Contact ── */
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--s-7);
+    align-items: start;
+  }
+  .contact-lead {
+    font-family: var(--serif);
+    font-weight: 300;
+    font-size: 28px;
+    line-height: 1.3;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+  .contact-lead em { font-style: italic; color: var(--ink-mute); }
+  .contact-channels {
+    margin-top: var(--s-5);
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-2);
+  }
+  .channel {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: var(--s-2) 0;
+    border-bottom: 0.5px solid var(--rule);
+    font-size: 13px;
+  }
+  .channel-label {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+  }
+  .channel a { color: var(--ink); text-decoration: none; transition: color 0.25s ease; }
+  .channel a:hover { color: var(--ink-mute); }
+
+  .form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-3);
+  }
+  .field { display: flex; flex-direction: column; }
+  .field label {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    margin-bottom: var(--s-1);
+  }
+  .field input,
+  .field textarea {
+    background: transparent;
+    border: none;
+    border-bottom: 0.5px solid var(--rule-strong);
+    padding: 10px 0;
+    font-size: 14px;
+    color: var(--ink);
+    font-family: var(--sans);
+    transition: border-color 0.25s ease;
+    resize: none;
+  }
+  .field input:focus,
+  .field textarea:focus {
+    outline: none;
+    border-bottom-color: var(--ink);
+  }
+  .field textarea { min-height: 88px; }
+  .send-btn {
+    align-self: flex-start;
+    background: transparent;
+    border: none;
+    color: var(--ink);
+    font-size: 13px;
+    letter-spacing: 0.04em;
+    padding: 0 0 4px;
+    border-bottom: 0.5px solid var(--ink);
+    cursor: pointer;
+    font-family: var(--sans);
+    margin-top: var(--s-3);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: opacity 0.25s ease;
+  }
+  .send-btn:hover { opacity: 0.55; }
+  .send-btn svg { transition: transform 0.3s ease; }
+  .send-btn:hover svg { transform: translateX(3px); }
+
+  /* ── Footer ── */
+  footer {
+    border-top: 0.5px solid var(--rule);
+    padding: var(--s-5) 0 var(--s-6);
+  }
+  .foot-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: var(--s-3);
+  }
+  .foot-copy {
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    color: var(--ink-mute);
+  }
+  .foot-copy em { font-family: var(--serif); font-style: italic; }
+  .foot-meta {
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 300;
+    font-size: 12px;
+    color: var(--ink-faint);
+  }
+
+  /* ── i18n ── */
+  .ja, span.ja { display: inline; }
+  .en, span.en { display: none; }
+  .show-en .ja, .show-en span.ja { display: none; }
+  .show-en .en, .show-en span.en { display: inline; }
+  p.ja, p.en, div.ja, div.en { display: block; }
+  .show-en p.ja, .show-en div.ja { display: none; }
+  p.en, div.en { display: none; }
+  .show-en p.en, .show-en div.en { display: block; }
+
+  /* ── Reveal on load ── */
+  .fade {
+    opacity: 0;
+    transform: translateY(8px);
+    animation: fadeIn 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  }
+  .fade.d1 { animation-delay: 0.05s; }
+  .fade.d2 { animation-delay: 0.15s; }
+  .fade.d3 { animation-delay: 0.25s; }
+  .fade.d4 { animation-delay: 0.35s; }
+  .fade.d5 { animation-delay: 0.45s; }
+  @keyframes fadeIn { to { opacity: 1; transform: translateY(0); } }
+
+  /* ── Responsive ── */
+  @media (max-width: 640px) {
+    .shell { padding: 0 var(--s-3); }
+    .hero { padding: var(--s-7) 0 var(--s-6); }
+    .hero-index { display: none; }
+    section.block { padding: var(--s-6) 0; }
+    .work-item, .wip {
+      grid-template-columns: 32px 1fr;
+      gap: var(--s-2);
+    }
+    .work-links {
+      grid-column: 2;
       align-items: flex-start;
-      transition: border-color 0.2s, background 0.2s;
+      text-align: left;
+      margin-top: var(--s-2);
     }
-    .app-card:hover { border-color: var(--border-mid); background: var(--bg-card2); }
-    .app-icon {
-      width: 52px;
-      height: 52px;
-      border-radius: 13px;
-      background: var(--bg-card2);
-      border: 0.5px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 22px;
-      flex-shrink: 0;
-    }
-    .app-info { flex: 1; }
-    .app-name {
-      font-size: 16px;
-      font-weight: 500;
-      color: var(--text-primary);
-      margin-bottom: 6px;
-    }
-    .app-desc {
-      font-size: 14px;
-      color: var(--text-secondary);
-      line-height: 1.65;
-      margin-bottom: 16px;
-    }
-    .app-tags { display: flex; gap: 7px; flex-wrap: wrap; margin-bottom: 16px; }
-    .tag {
-      font-size: 11px;
-      padding: 3px 9px;
-      border-radius: 4px;
-      background: var(--accent-light);
-      color: var(--accent);
-      border: 0.5px solid rgba(107,58,31,0.18);
-      font-family: 'Inter', monospace;
-    }
-    .app-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 13px;
-      color: var(--accent);
-      text-decoration: none;
-      border: 0.5px solid rgba(107,58,31,0.3);
-      padding: 7px 15px;
-      border-radius: 6px;
-      transition: all 0.2s;
-    }
-    .app-link:hover { background: var(--accent-light); }
-    .app-policy-link {
-      display: block;
-      margin-top: 10px;
-      font-size: 11px;
-      color: var(--text-muted);
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-    .app-policy-link:hover { color: var(--text-secondary); }
-
-    .wip-card {
-      background: transparent;
-      border: 0.5px dashed var(--border-mid);
-      border-radius: 12px;
-      padding: 24px;
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      color: var(--text-muted);
-      font-size: 14px;
-    }
-    .wip-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: var(--accent);
-      flex-shrink: 0;
-      animation: pulse 2s infinite;
-    }
-    @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
-
-    /* ── Contact ── */
-    .contact-form { display: flex; flex-direction: column; gap: 14px; }
-    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-    .form-group { display: flex; flex-direction: column; gap: 6px; }
-    .form-group label {
-      font-size: 12px;
-      color: var(--text-muted);
-      letter-spacing: 0.04em;
-    }
-    .form-group input,
-    .form-group textarea {
-      background: var(--bg-card);
-      border: 0.5px solid var(--border-mid);
-      border-radius: 6px;
-      padding: 10px 14px;
-      font-size: 14px;
-      color: var(--text-primary);
-      font-family: 'Inter', 'Noto Sans JP', sans-serif;
-      transition: border-color 0.2s;
-      resize: none;
-    }
-    .form-group input:focus,
-    .form-group textarea:focus {
-      outline: none;
-      border-color: var(--accent);
-    }
-    .form-group textarea { min-height: 100px; }
-    .submit-btn {
-      padding: 11px 28px;
-      font-size: 14px;
-      font-weight: 500;
-      background: var(--accent);
-      color: #f8f6f2;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      align-self: flex-start;
-      font-family: 'Inter', 'Noto Sans JP', sans-serif;
-      transition: background 0.2s;
-    }
-    .submit-btn:hover { background: var(--accent-hover); }
-
-    /* ── Footer ── */
-    footer {
-      padding: 28px 40px;
-      border-top: 0.5px solid var(--border);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      max-width: 700px;
-      margin: 0 auto;
-    }
-    .footer-copy { font-size: 12px; color: var(--text-muted); }
-    .footer-link {
-      font-size: 12px;
-      color: var(--text-muted);
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-    .footer-link:hover { color: var(--text-secondary); }
-
-    /* ── i18n ── */
-    .ja { display: block; }
-    .en { display: none; }
-    .show-en .ja { display: none; }
-    .show-en .en { display: block; }
-    span.ja { display: inline; }
-    span.en { display: none; }
-    .show-en span.ja { display: none; }
-    .show-en span.en { display: inline; }
-
-    /* ── Responsive ── */
-    @media (max-width: 600px) {
-      .nav-inner { padding: 16px 20px; }
-      .hero { padding: 64px 20px 60px; }
-      .hero-title { font-size: 30px; }
-      .section { padding: 60px 20px; }
-      .divider { margin: 0 20px; }
-      .form-row { grid-template-columns: 1fr; }
-      footer { padding: 24px 20px; }
-      .app-card { flex-direction: column; gap: 16px; }
-    }
-  </style>
+    .wip-status { grid-column: 2; margin-top: var(--s-1); }
+    .contact-grid { grid-template-columns: 1fr; gap: var(--s-5); }
+    .facts { grid-template-columns: 1fr; gap: var(--s-3); }
+    .hero-actions { flex-direction: column; align-items: flex-start; gap: var(--s-2); }
+  }
+</style>
 </head>
 <body id="pg">
 
-<!-- Nav -->
 <nav>
-  <div class="nav-inner">
+  <div class="shell nav-inner">
     <a class="nav-logo" href="#">cafemocha9</a>
     <div class="nav-links">
+      <a href="#work">Work</a>
       <a href="#about">About</a>
-      <a href="#apps">Apps</a>
-      <a href="#contact"><span class="ja">Contact</span><span class="en">Contact</span></a>
+      <a href="#contact">Contact</a>
       <button class="lang-btn" onclick="toggleLang()" id="langBtn">EN</button>
     </div>
   </div>
 </nav>
 
-<!-- Hero -->
-<div class="hero">
-  <h1 class="hero-title">
-    <span class="ja">コーヒーの知識と<br><span>コードで作る</span><br>プロダクト</span>
-    <span class="en">Crafting apps at the<br>intersection of<br><span>coffee & code</span></span>
-  </h1>
-  <p class="hero-sub">
-    <span class="ja">スペシャルティコーヒー業界のバックグラウンドを持つ、iOS アプリ開発者。ドメイン知識を活かしたプロダクトを独自開発しています。</span>
-    <span class="en">iOS developer with a background in the specialty coffee industry. Building niche apps powered by deep domain expertise.</span>
-  </p>
-  <div class="hero-btns">
-    <button class="btn-primary" onclick="location.href='#apps'">
-      <span class="ja">アプリを見る</span><span class="en">View Apps</span>
-    </button>
-    <button class="btn-secondary" onclick="location.href='#contact'">
-      <span class="ja">お問い合わせ</span><span class="en">Get in touch</span>
-    </button>
+<!-- ══════ HERO ══════ -->
+<header class="shell hero">
+  <div class="hero-index fade d1">
+    <em>Est. 2026</em>
   </div>
-</div>
 
-<div class="divider"></div>
+  <div class="hero-meta fade d1">
+    <span class="dot"></span>
+    <span class="ja">現在 Coffee Palette をApp Storeで公開中</span>
+    <span class="en">Coffee Palette — now on the App Store</span>
+  </div>
 
-<!-- About -->
-<section class="section" id="about">
-  <p class="section-label"><span class="ja">自己紹介</span><span class="en">About</span></p>
-  <p class="about-text">
-    <span class="ja">コーヒーの仕事をしていると記録したいことが積み重なる。使った豆、感じた風味、次に試したい事。既存のアプリではどれもしっくりこなかった。それが開発のきっかけだった。</span>
-    <span class="en">Working in coffee means accumulating things worth remembering — the beans, the flavors, what to try next. Nothing out there felt quite right. So I built it myself.</span>
+  <h1 class="hero-title fade d2">
+    <span class="ja">コーヒーと<br>コードで、<em>小さな道具を。</em></span>
+    <span class="en">Small tools, built<br>at the intersection<br>of <em>coffee & code.</em></span>
+  </h1>
+
+  <p class="hero-sub fade d3">
+    <span class="ja">スペシャルティコーヒー業界の実務経験を背景に、ドメイン知識を活かしたiOSアプリを独自に設計・開発しています。</span>
+    <span class="en">Independent iOS developer drawing on years in the specialty coffee trade. I design, build, and ship niche apps powered by domain expertise.</span>
   </p>
-  <p class="about-text">
-    <span class="ja"><strong>スペシャルティコーヒー業界</strong>での実務経験をベースに、2026年よりiOSアプリ開発を開始。企画・実装・リリースまでを個人で一貫して担い、現在「Coffee Palette」をApp Storeにて提供中。</span>
-    <span class="en">Drawing on a professional background in the <strong>specialty coffee industry</strong>, I started iOS development in 2026. As an independent developer, I handle everything from concept to release. Coffee Palette is now available on the App Store.</span>
+
+  <div class="hero-actions fade d4">
+    <a class="link-primary" href="#work">
+      <span class="ja">仕事を見る</span><span class="en">See the work</span>
+      <svg width="14" height="10" viewBox="0 0 14 10" fill="none" stroke="currentColor" stroke-width="1"><path d="M1 5h12M9 1l4 4-4 4"/></svg>
+    </a>
+    <a class="link-muted" href="#contact">
+      <span class="ja">連絡する</span><span class="en">Say hello</span>
+    </a>
+  </div>
+</header>
+
+<div class="rule"></div>
+
+<!-- ══════ WORK ══════ -->
+<section class="shell block" id="work">
+  <p class="eyebrow">
+    <span class="ja">制作物</span><span class="en">Selected Work</span>
+    <span class="num">i. — ii.</span>
   </p>
-</section>
 
-<div class="divider"></div>
-
-<!-- Apps -->
-<section class="section" id="apps">
-  <p class="section-label"><span class="ja">アプリ</span><span class="en">Apps</span></p>
-
-  <div class="app-card">
-    <div class="app-icon">☕</div>
-    <div class="app-info">
-      <p class="app-name">Coffee Palette</p>
-      <p class="app-desc">
-        <span class="ja">スペシャルティコーヒーの記録・分析・シェアができるiOSアプリ。7つのフレーバーホイールと QRコード共有機能を搭載。</span>
-        <span class="en">An iOS app for logging, analyzing, and sharing specialty coffee. Features a 7-flavor wheel and QR code sharing.</span>
+  <article class="work-item">
+    <div class="work-num">01</div>
+    <div class="work-body">
+      <h2 class="work-title">Coffee Palette</h2>
+      <p class="work-desc">
+        <span class="ja">スペシャルティコーヒーの記録・分析・共有ができるiOSアプリ。独自の7点フレーバーホイールとQRコード共有機能を搭載。</span>
+        <span class="en">An iOS app for logging, analyzing, and sharing specialty coffee. Features a seven-point flavor wheel and QR-based sharing.</span>
       </p>
-      <div class="app-tags">
-        <span class="tag">iOS</span>
-        <span class="tag">React Native</span>
-        <span class="tag">Expo</span>
-        <span class="tag">TypeScript</span>
+      <div class="work-meta">
+        <span>iOS</span><span>React Native</span><span>Expo</span><span>TypeScript</span>
       </div>
-      <!-- App Store URL を取得後に href を更新してください -->
-      <a class="app-link" href="#" target="_blank" rel="noopener">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-        <span class="ja">App Store で見る</span><span class="en">View on App Store</span>
+    </div>
+    <div class="work-links">
+      <a href="#" target="_blank" rel="noopener">
+        App Store
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17l10-10M17 7H9M17 7v8"/></svg>
       </a>
-      <a class="app-policy-link" href="https://cafemocha9.github.io/privacy-policy/" target="_blank" rel="noopener">
-        <span class="ja">プライバシーポリシー</span><span class="en">Privacy Policy</span>
+      <a href="https://cafemocha9.github.io/privacy-policy/" class="sub" target="_blank" rel="noopener">
+        <span class="ja">プライバシー</span><span class="en">Privacy</span>
       </a>
     </div>
-  </div>
+  </article>
 
-  <div class="wip-card">
-    <div class="wip-dot"></div>
-    <span>
-      <span class="ja">次のアプリを開発中 — Coming soon</span>
-      <span class="en">Next app in development — Coming soon</span>
-    </span>
+  <div class="wip">
+    <div class="wip-num">02</div>
+    <div>
+      <h3 class="wip-title">
+        <span class="ja">次のプロダクト</span><span class="en">Next product</span>
+      </h3>
+    </div>
+    <div class="wip-status">In Progress</div>
   </div>
 </section>
 
-<div class="divider"></div>
+<!-- ══════ ABOUT ══════ -->
+<section class="shell block" id="about">
+  <p class="eyebrow">
+    <span class="ja">自己紹介</span><span class="en">About</span>
+    <span class="num">§ biography</span>
+  </p>
 
-<!-- Contact -->
-<section class="section" id="contact">
-  <p class="section-label"><span class="ja">お問い合わせ</span><span class="en">Contact</span></p>
-  <div class="contact-form">
-    <div class="form-row">
-      <div class="form-group">
+  <div class="about-grid">
+    <p class="about-text">
+      <span class="ja">しっくりこないものは、<em>自分で作る。</em></span>
+      <span class="en">If it doesn't feel right, <em>build it yourself.</em></span>
+    </p>
+    <p class="about-body">
+      <span class="ja">日々の仕事のなかで、記録したいことや、もう少し良くできそうなことが積み重なっていく。コーヒーの現場から始めた小さな習慣が、いまは次の道具へと続いている。</span>
+      <span class="en">In the rhythm of daily work, small frictions accumulate — things worth remembering, things that could be a little better. A habit that began on the coffee floor now carries into the next tool I build.</span>
+    </p>
+  </div>
+
+  <div class="facts">
+    <div>
+      <div class="fact-label"><span class="ja">分野</span><span class="en">Focus</span></div>
+      <div class="fact-value">iOS · <em>Independent</em></div>
+    </div>
+    <div>
+      <div class="fact-label"><span class="ja">開発開始</span><span class="en">Since</span></div>
+      <div class="fact-value"><em>2026</em></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ CONTACT ══════ -->
+<section class="shell block" id="contact">
+  <p class="eyebrow">
+    <span class="ja">お問い合わせ</span><span class="en">Contact</span>
+    <span class="num">§ get in touch</span>
+  </p>
+
+  <div class="contact-grid">
+    <div>
+      <p class="contact-lead">
+        <span class="ja">プロダクトのご相談、<br>コラボレーション、<em>そして一杯の話も。</em></span>
+        <span class="en">Product inquiries,<br>collaborations,<br><em>or a good cup of coffee.</em></span>
+      </p>
+      <div class="contact-channels">
+        <div class="channel">
+          <span class="channel-label">Email</span>
+          <a href="mailto:cafemocha9.app.dev@gmail.com">cafemocha9.app.dev@gmail.com</a>
+        </div>
+        <div class="channel">
+          <span class="channel-label">GitHub</span>
+          <a href="https://github.com/cafemocha9" target="_blank" rel="noopener">@cafemocha9</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="form">
+      <div class="field">
         <label><span class="ja">お名前</span><span class="en">Name</span></label>
         <input type="text" name="name" autocomplete="name">
       </div>
-      <div class="form-group">
-        <label><span class="ja">メールアドレス</span><span class="en">Email</span></label>
+      <div class="field">
+        <label><span class="ja">メール</span><span class="en">Email</span></label>
         <input type="email" name="email" autocomplete="email">
       </div>
+      <div class="field">
+        <label><span class="ja">メッセージ</span><span class="en">Message</span></label>
+        <textarea name="message"></textarea>
+      </div>
+      <button class="send-btn" onclick="sendMail()">
+        <span class="ja">送信</span><span class="en">Send</span>
+        <svg width="14" height="10" viewBox="0 0 14 10" fill="none" stroke="currentColor" stroke-width="1"><path d="M1 5h12M9 1l4 4-4 4"/></svg>
+      </button>
     </div>
-    <div class="form-group">
-      <label><span class="ja">メッセージ</span><span class="en">Message</span></label>
-      <textarea name="message"></textarea>
-    </div>
-    <button class="submit-btn" onclick="sendMail()">
-      <span class="ja">送信する</span><span class="en">Send</span>
-    </button>
   </div>
 </section>
 
-<div class="divider"></div>
-
-<!-- Footer -->
 <footer>
-  <span class="footer-copy">© 2026 cafemocha9</span>
+  <div class="shell foot-inner">
+    <div class="foot-copy">© 2026 cafemocha9</div>
+    <div class="foot-meta">
+      iOS · <span id="yr"></span>
+    </div>
+  </div>
 </footer>
 
 <script>
@@ -485,10 +757,12 @@
       alert('すべての項目を入力してください。\nPlease fill in all fields.');
       return;
     }
-    const subject = encodeURIComponent('お問い合わせ / Contact from ' + name);
+    const subject = encodeURIComponent('Contact from ' + name);
     const body    = encodeURIComponent('Name: ' + name + '\nEmail: ' + email + '\n\n' + message);
     window.location.href = 'mailto:cafemocha9.app.dev@gmail.com?subject=' + subject + '&body=' + body;
   }
+
+  document.getElementById('yr').textContent = new Date().getFullYear();
 </script>
 
 </body>
