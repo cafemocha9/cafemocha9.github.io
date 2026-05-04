@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Coffee Palette — スペシャルティコーヒーの記録アプリ</title>
+<meta name="description" content="一杯の個性をパレットに。自分だけのコーヒーログ。スペシャルティコーヒーの味わいを直感的に記録・管理できるiOSアプリ。">
+<meta property="og:title" content="Coffee Palette">
+<meta property="og:description" content="一杯の個性をパレットに。自分だけのコーヒーログ。">
+<meta property="og:image" content="/images/icon.PNG">
+<meta property="og:type" content="website">
+<link rel="icon" href="/images/icon.PNG">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300&family=Inter:wght@400;500&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:          #fafaf8;
+    --bg-elev:     #f3f2ee;
+    --rule:        rgba(20,18,15,0.08);
+    --rule-strong: rgba(20,18,15,0.18);
+    --ink:         #141210;
+    --ink-soft:    #3a3631;
+    --ink-mute:    #8a837a;
+    --ink-faint:   #b5ada2;
+    --accent-soft: rgba(20,18,15,0.04);
+
+    --serif: 'Fraunces', 'Noto Sans JP', serif;
+    --sans:  'Inter', 'Noto Sans JP', sans-serif;
+
+    --s-1: 8px;  --s-2: 16px; --s-3: 24px; --s-4: 32px;
+    --s-5: 48px; --s-6: 64px; --s-7: 96px; --s-8: 128px;
+  }
+
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--sans);
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection { background: var(--ink); color: var(--bg); }
+
+  .shell {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 var(--s-4);
+  }
+
+  /* ── Nav ── */
+  nav {
+    position: sticky;
+    top: 0;
+    background: rgba(250,250,248,0.85);
+    backdrop-filter: saturate(160%) blur(12px);
+    -webkit-backdrop-filter: saturate(160%) blur(12px);
+    border-bottom: 0.5px solid var(--rule);
+    z-index: 100;
+  }
+  .nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--s-3) 0;
+  }
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+  }
+  .nav-logo img {
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+  }
+  .nav-logo-name {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 16px;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+  }
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: var(--s-2);
+  }
+  .lang-btn {
+    font-family: var(--sans);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    padding: 5px 10px;
+    border-radius: 2px;
+    border: 0.5px solid var(--rule-strong);
+    background: transparent;
+    color: var(--ink-soft);
+    cursor: pointer;
+    transition: background 0.25s ease, color 0.25s ease;
+  }
+  .lang-btn:hover { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+  .nav-dl {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--ink);
+    color: var(--bg);
+    text-decoration: none;
+    padding: 7px 14px;
+    border-radius: 2px;
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    transition: opacity 0.25s ease;
+  }
+  .nav-dl:hover { opacity: 0.7; }
+
+  /* ── Hero ── */
+  .hero {
+    padding: var(--s-8) 0 var(--s-7);
+    text-align: center;
+  }
+  .hero-icon {
+    width: 96px;
+    height: 96px;
+    border-radius: 22px;
+    margin: 0 auto var(--s-5);
+    display: block;
+    box-shadow: 0 8px 32px rgba(20,18,15,0.12);
+  }
+  .hero-title {
+    font-family: var(--serif);
+    font-weight: 300;
+    font-size: clamp(36px, 6vw, 52px);
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    color: var(--ink);
+    margin-bottom: var(--s-3);
+    font-variation-settings: "opsz" 72;
+  }
+  .hero-title em { font-style: italic; color: var(--ink-mute); }
+  .hero-sub {
+    font-size: 17px;
+    color: var(--ink-soft);
+    line-height: 1.7;
+    margin: 0 auto var(--s-6);
+    max-width: 24em;
+  }
+  .dl-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--ink);
+    color: var(--bg);
+    text-decoration: none;
+    padding: 14px 28px;
+    border-radius: 4px;
+    font-size: 14px;
+    letter-spacing: 0.02em;
+    transition: opacity 0.25s ease;
+  }
+  .dl-btn:hover { opacity: 0.75; }
+
+  /* ── Rule ── */
+  .rule { height: 0.5px; background: var(--rule); }
+
+  /* ── Eyebrow ── */
+  .eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    display: flex;
+    align-items: center;
+    gap: var(--s-2);
+    margin-bottom: var(--s-6);
+  }
+  .eyebrow::before {
+    content: '';
+    display: inline-block;
+    width: 24px;
+    height: 0.5px;
+    background: var(--ink-mute);
+  }
+
+  /* ── Screenshots ── */
+  .screenshots-section { padding: var(--s-8) 0; }
+  .screenshots-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--s-3);
+  }
+  .screenshot {
+    border-radius: 16px;
+    overflow: hidden;
+    background: var(--bg-elev);
+    aspect-ratio: 9 / 19.5;
+  }
+  .screenshot img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* ── Features ── */
+  .features-section { padding: var(--s-8) 0; }
+  .features-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--s-5) var(--s-6);
+  }
+  .feature-item {
+    border-top: 0.5px solid var(--rule);
+    padding-top: var(--s-3);
+  }
+  .feature-num {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 13px;
+    color: var(--ink-faint);
+    margin-bottom: var(--s-2);
+  }
+  .feature-title {
+    font-family: var(--serif);
+    font-weight: 300;
+    font-size: 20px;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    line-height: 1.3;
+    margin-bottom: var(--s-1);
+  }
+  .feature-desc {
+    font-size: 14px;
+    color: var(--ink-soft);
+    line-height: 1.75;
+  }
+
+  /* ── About ── */
+  .about-section { padding: var(--s-8) 0; }
+  .about-lead {
+    font-family: var(--serif);
+    font-weight: 300;
+    font-size: 26px;
+    line-height: 1.45;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: var(--s-4);
+  }
+  .about-lead em { font-style: italic; color: var(--ink-mute); }
+  .about-body {
+    font-size: 15px;
+    color: var(--ink-soft);
+    line-height: 1.85;
+    max-width: 36em;
+  }
+  .about-footer {
+    margin-top: var(--s-6);
+    padding-top: var(--s-5);
+    border-top: 0.5px solid var(--rule);
+    display: flex;
+    align-items: center;
+    gap: var(--s-4);
+    flex-wrap: wrap;
+  }
+  .link-muted {
+    font-size: 13px;
+    color: var(--ink-mute);
+    text-decoration: none;
+    transition: color 0.25s ease;
+  }
+  .link-muted:hover { color: var(--ink); }
+
+  /* ── Footer ── */
+  footer {
+    border-top: 0.5px solid var(--rule);
+    padding: var(--s-5) 0 var(--s-6);
+  }
+  .foot-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: var(--s-3);
+    flex-wrap: wrap;
+  }
+  .foot-copy {
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    color: var(--ink-mute);
+  }
+  .foot-links {
+    display: flex;
+    gap: var(--s-3);
+  }
+  .foot-links a {
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    color: var(--ink-mute);
+    text-decoration: none;
+    transition: color 0.25s ease;
+  }
+  .foot-links a:hover { color: var(--ink); }
+
+  /* ── i18n ── */
+  .ja, span.ja { display: inline; }
+  .en, span.en { display: none; }
+  .show-en .ja, .show-en span.ja { display: none; }
+  .show-en .en, .show-en span.en { display: inline; }
+  p.ja, p.en, div.ja, div.en { display: block; }
+  .show-en p.ja, .show-en div.ja { display: none; }
+  p.en, div.en { display: none; }
+  .show-en p.en, .show-en div.en { display: block; }
+
+  /* ── Fade in ── */
+  .fade {
+    opacity: 0;
+    transform: translateY(8px);
+    animation: fadeIn 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  }
+  .fade.d1 { animation-delay: 0.05s; }
+  .fade.d2 { animation-delay: 0.15s; }
+  .fade.d3 { animation-delay: 0.25s; }
+  .fade.d4 { animation-delay: 0.35s; }
+  @keyframes fadeIn { to { opacity: 1; transform: translateY(0); } }
+
+  /* ── Responsive ── */
+  @media (max-width: 640px) {
+    .shell { padding: 0 var(--s-3); }
+    .hero { padding: var(--s-6) 0; }
+    .nav-dl span { display: none; }
+    .screenshots-grid { grid-template-columns: repeat(2, 1fr); gap: var(--s-2); }
+    .screenshot { border-radius: 10px; }
+    .features-grid { grid-template-columns: 1fr; gap: var(--s-4); }
+    .about-footer { flex-direction: column; gap: var(--s-3); }
+  }
+</style>
+</head>
+<body id="pg">
+
+<nav>
+  <div class="shell nav-inner">
+    <a class="nav-logo" href="#">
+      <img src="/images/icon.PNG" alt="Coffee Palette">
+      <span class="nav-logo-name">Coffee Palette</span>
+    </a>
+    <div class="nav-right">
+      <button class="lang-btn" onclick="toggleLang()" id="langBtn">EN</button>
+      <a class="nav-dl" href="https://apps.apple.com/us/app/coffee-palette-スペシャルティコーヒーの記録/id6762002751" target="_blank" rel="noopener">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+        <span class="ja">ダウンロード</span><span class="en">Download</span>
+      </a>
+    </div>
+  </div>
+</nav>
+
+<!-- ══════ HERO ══════ -->
+<header class="shell hero">
+  <img class="hero-icon fade d1" src="/images/icon.PNG" alt="Coffee Palette アイコン">
+
+  <h1 class="hero-title fade d2">
+    <span class="ja">一杯の個性を、<br><em>パレットに。</em></span>
+    <span class="en">Your coffee,<br><em>your palette.</em></span>
+  </h1>
+
+  <p class="hero-sub fade d3">
+    <span class="ja">自分だけのコーヒーログ。</span>
+    <span class="en">A personal log for specialty coffee.</span>
+  </p>
+
+  <div class="fade d4">
+    <a class="dl-btn" href="https://apps.apple.com/us/app/coffee-palette-スペシャルティコーヒーの記録/id6762002751" target="_blank" rel="noopener">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+      <span class="ja">App Storeでダウンロード</span><span class="en">Download on the App Store</span>
+    </a>
+  </div>
+</header>
+
+<div class="rule"></div>
+
+<!-- ══════ SCREENSHOTS ══════ -->
+<section class="shell screenshots-section">
+  <p class="eyebrow">
+    <span class="ja">スクリーンショット</span><span class="en">Screenshots</span>
+  </p>
+  <div class="screenshots-grid">
+    <div class="screenshot">
+      <img src="/images/screen1.png" alt="Coffee Palette スクリーンショット 1">
+    </div>
+    <div class="screenshot">
+      <img src="/images/screen2.png" alt="Coffee Palette スクリーンショット 2">
+    </div>
+    <div class="screenshot">
+      <img src="/images/screen3.png" alt="Coffee Palette スクリーンショット 3">
+    </div>
+    <div class="screenshot">
+      <img src="/images/screen4.png" alt="Coffee Palette スクリーンショット 4">
+    </div>
+  </div>
+</section>
+
+<div class="rule"></div>
+
+<!-- ══════ FEATURES ══════ -->
+<section class="shell features-section">
+  <p class="eyebrow">
+    <span class="ja">機能</span><span class="en">Features</span>
+  </p>
+  <div class="features-grid">
+    <div class="feature-item">
+      <div class="feature-num">01</div>
+      <h3 class="feature-title">
+        <span class="ja">カラフルな記録</span><span class="en">Colorful Logging</span>
+      </h3>
+      <p class="feature-desc">
+        <span class="ja">コーヒーをパレットのようにカラフルに記録。一杯ごとの個性を色で表現します。</span>
+        <span class="en">Log your coffee as colorfully as a painter's palette. Express each cup's character through color.</span>
+      </p>
+    </div>
+    <div class="feature-item">
+      <div class="feature-num">02</div>
+      <h3 class="feature-title">
+        <span class="ja">フレーバーホイール</span><span class="en">Flavor Wheel</span>
+      </h3>
+      <p class="feature-desc">
+        <span class="ja">独自の7点フレーバーホイールで、味わいを直感的に評価・記録できます。</span>
+        <span class="en">A seven-point flavor wheel for intuitive and consistent tasting notes.</span>
+      </p>
+    </div>
+    <div class="feature-item">
+      <div class="feature-num">03</div>
+      <h3 class="feature-title">
+        <span class="ja">QRコードで共有</span><span class="en">QR Sharing</span>
+      </h3>
+      <p class="feature-desc">
+        <span class="ja">記録したコーヒーをQRコードで簡単に共有。お気に入りの一杯を伝えましょう。</span>
+        <span class="en">Share your coffee records instantly via QR code. Pass on your favorite finds.</span>
+      </p>
+    </div>
+    <div class="feature-item">
+      <div class="feature-num">04</div>
+      <h3 class="feature-title">
+        <span class="ja">自分だけのデータベース</span><span class="en">Personal Database</span>
+      </h3>
+      <p class="feature-desc">
+        <span class="ja">飲んだコーヒーを蓄積し、自分だけのコーヒーデータベースを育てていきましょう。</span>
+        <span class="en">Build and grow your own personal coffee database, cup by cup.</span>
+      </p>
+    </div>
+  </div>
+</section>
+
+<div class="rule"></div>
+
+<!-- ══════ ABOUT ══════ -->
+<section class="shell about-section">
+  <p class="eyebrow">
+    <span class="ja">アプリについて</span><span class="en">About the App</span>
+  </p>
+  <p class="about-lead">
+    <span class="ja">スペシャルティコーヒーの味わいを、<em>直感的に。</em></span>
+    <span class="en">Specialty coffee flavors,<br><em>captured intuitively.</em></span>
+  </p>
+  <p class="about-body">
+    <span class="ja">Coffee Paletteは、スペシャルティコーヒーの味わいを直感的に記録・管理できるアプリです。飲んだコーヒーの情報をその場で記録し、自分だけのコーヒーデータベースを育てましょう。</span>
+    <span class="en">Coffee Palette is an app for intuitively logging and managing the flavors of your specialty coffee. Record each cup as you drink it, and grow your own personal coffee database.</span>
+  </p>
+  <div class="about-footer">
+    <a class="dl-btn" href="https://apps.apple.com/us/app/coffee-palette-スペシャルティコーヒーの記録/id6762002751" target="_blank" rel="noopener">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+      <span class="ja">App Storeでダウンロード</span><span class="en">Download on the App Store</span>
+    </a>
+  </div>
+</section>
+
+<footer>
+  <div class="shell foot-inner">
+    <div class="foot-copy">© 2026 cafemocha9</div>
+    <div class="foot-links">
+      <a href="https://cafemocha9.github.io/privacy-policy/" target="_blank" rel="noopener">
+        <span class="ja">プライバシーポリシー</span><span class="en">Privacy Policy</span>
+      </a>
+      <a href="/">
+        <span class="ja">開発者について</span><span class="en">Developer</span>
+      </a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  function toggleLang() {
+    const pg = document.getElementById('pg');
+    const btn = document.getElementById('langBtn');
+    pg.classList.toggle('show-en');
+    btn.textContent = pg.classList.contains('show-en') ? 'JA' : 'EN';
+  }
+</script>
+
+</body>
+</html>

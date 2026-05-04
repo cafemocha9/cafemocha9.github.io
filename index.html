@@ -546,7 +546,9 @@
   /* ── Responsive ── */
   @media (max-width: 640px) {
     .shell { padding: 0 var(--s-3); }
-    .hero { padding: var(--s-7) 0 var(--s-6); }
+    .hero { padding: var(--s-7) 0 var(--s-6); text-align: center; }
+    .hero-meta { justify-content: center; }
+    .hero-sub { max-width: none; }
     .hero-index { display: none; }
     section.block { padding: var(--s-6) 0; }
     .work-item, .wip {
@@ -562,7 +564,7 @@
     .wip-status { grid-column: 2; margin-top: var(--s-1); }
     .contact-grid { grid-template-columns: 1fr; gap: var(--s-5); }
     .facts { grid-template-columns: 1fr; gap: var(--s-3); }
-    .hero-actions { flex-direction: column; align-items: flex-start; gap: var(--s-2); }
+    .hero-actions { flex-direction: column; align-items: center; gap: var(--s-2); }
   }
 </style>
 </head>
@@ -593,13 +595,13 @@
   </div>
 
   <h1 class="hero-title fade d2">
-    <span class="ja">コーヒーと<br>コードで、<em>小さな道具を。</em></span>
-    <span class="en">Small tools, built<br>at the intersection<br>of <em>coffee & code.</em></span>
+    <span class="ja">しっくりこないものは、自分で作る。</span>
+    <span class="en">If it doesn't feel right,<br>build it yourself.</span>
   </h1>
 
   <p class="hero-sub fade d3">
-    <span class="ja">スペシャルティコーヒー業界の実務経験を背景に、ドメイン知識を活かしたiOSアプリを独自に設計・開発しています。</span>
-    <span class="en">Independent iOS developer drawing on years in the specialty coffee trade. I design, build, and ship niche apps powered by domain expertise.</span>
+    <span class="ja">職人が良い道具を使いたくて自分で作り始めるように、現場で積んだ経験を起点にアプリを設計・開発しています。</span>
+    <span class="en">Like a craftsman who builds the tools they wish existed, I design and develop apps rooted in hands-on experience.</span>
   </p>
 
   <div class="hero-actions fade d4">
@@ -635,7 +637,7 @@
       </div>
     </div>
     <div class="work-links">
-      <a href="#" target="_blank" rel="noopener">
+      <a href="https://apps.apple.com/us/app/coffee-palette-スペシャルティコーヒーの記録/id6762002751" target="_blank" rel="noopener">
         App Store
         <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17l10-10M17 7H9M17 7v8"/></svg>
       </a>
@@ -665,12 +667,12 @@
 
   <div class="about-grid">
     <p class="about-text">
-      <span class="ja">しっくりこないものは、<em>自分で作る。</em></span>
-      <span class="en">If it doesn't feel right, <em>build it yourself.</em></span>
+      <span class="ja">日常生活や仕事の現場で積み重なった経験が、ある日、別の形で動き出すことがある。</span>
+      <span class="en">Experience accumulated in daily life and on the job sometimes takes on a new form.</span>
     </p>
     <p class="about-body">
-      <span class="ja">日々の仕事のなかで、記録したいことや、もう少し良くできそうなことが積み重なっていく。コーヒーの現場から始めた小さな習慣が、いまは次の道具へと続いている。</span>
-      <span class="en">In the rhythm of daily work, small frictions accumulate — things worth remembering, things that could be a little better. A habit that began on the coffee floor now carries into the next tool I build.</span>
+      <span class="ja">さざ波がうねりになる瞬間を、アプリとして形にする。</span>
+      <span class="en">I turn those moments — when a ripple becomes a wave — into an app.</span>
     </p>
   </div>
 
@@ -696,17 +698,13 @@
   <div class="contact-grid">
     <div>
       <p class="contact-lead">
-        <span class="ja">プロダクトのご相談、<br>コラボレーション、<em>そして一杯の話も。</em></span>
-        <span class="en">Product inquiries,<br>collaborations,<br><em>or a good cup of coffee.</em></span>
+        <span class="ja">プロダクトに関することやご相談など気軽にお問い合わせください。</span>
+        <span class="en">Feel free to reach out about products, collaborations, or anything else.</span>
       </p>
       <div class="contact-channels">
         <div class="channel">
           <span class="channel-label">Email</span>
           <a href="mailto:cafemocha9.app.dev@gmail.com">cafemocha9.app.dev@gmail.com</a>
-        </div>
-        <div class="channel">
-          <span class="channel-label">GitHub</span>
-          <a href="https://github.com/cafemocha9" target="_blank" rel="noopener">@cafemocha9</a>
         </div>
       </div>
     </div>
