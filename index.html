@@ -70,8 +70,9 @@
   .nav-inner {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    padding: var(--s-3) 0;
+    justify-content: flex-end;
+    padding-top: var(--s-3);
+    padding-bottom: var(--s-3);
   }
   .nav-logo {
     font-family: var(--serif);
@@ -141,7 +142,8 @@
 
   /* ── Hero ── */
   .hero {
-    padding: var(--s-9) 0 var(--s-8);
+    padding-top: var(--s-9);
+    padding-bottom: var(--s-8);
     position: relative;
   }
   .hero-meta {
@@ -233,7 +235,8 @@
 
   /* ── Section ── */
   section.block {
-    padding: var(--s-8) 0;
+    padding-top: var(--s-8);
+    padding-bottom: var(--s-8);
   }
 
   /* ── About ── */
@@ -546,11 +549,11 @@
   /* ── Responsive ── */
   @media (max-width: 640px) {
     .shell { padding: 0 var(--s-3); }
-    .hero { padding: var(--s-7) 0 var(--s-6); text-align: center; }
+    .hero { padding-top: var(--s-7); padding-bottom: var(--s-6); text-align: center; }
     .hero-meta { justify-content: center; }
     .hero-sub { max-width: none; }
     .hero-index { display: none; }
-    section.block { padding: var(--s-6) 0; }
+    section.block { padding-top: var(--s-6); padding-bottom: var(--s-6); }
     .work-item, .wip {
       grid-template-columns: 32px 1fr;
       gap: var(--s-2);
@@ -572,7 +575,6 @@
 
 <nav>
   <div class="shell nav-inner">
-    <a class="nav-logo" href="#">cafemocha9</a>
     <div class="nav-links">
       <a href="#work">Work</a>
       <a href="#about">About</a>
