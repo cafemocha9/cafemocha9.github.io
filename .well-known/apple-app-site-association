@@ -1,0 +1,13 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": ["XS97N74K9D.com.cafemocha9.coffeepalette"],
+        "components": [
+          { "/": "/coffee-palette/q", "comment": "Coffee Palette で作成したQRコード" },
+          { "/": "/coffee-palette/q/*", "comment": "Coffee Palette で作成したQRコード" }
+        ]
+      }
+    ]
+  }
+}
