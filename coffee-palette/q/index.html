@@ -65,6 +65,11 @@
       note: 'If you have an iPhone or iPad, install the app from the App Store and scan this QR code again.'
     };
     for (var id in en) document.getElementById(id).textContent = en[id];
+  } else {
+    // Android・PC のブラウザ（Web 版 App Store）は国の指定がないと米国ストア（英語）になる。
+    // 日本語の端末では日本のストアのページを開く。
+    // iPhone・iPad は App Store アプリが自分のアカウントの国で開くので、下の自動移動は国を指定しない
+    document.getElementById('dl').href = 'https://apps.apple.com/jp/app/id6762002751';
   }
   // アプリが入っていれば iOS がここに来る前にアプリを開く。
   // ここに来たのは未インストールの iPhone なので、App Store へそのまま移る。
