@@ -26,8 +26,14 @@
   }
   main { max-width: 360px; }
   img { width: 96px; height: 96px; border-radius: 22px; border: 1px solid var(--rule); }
-  h1 { font-size: 22px; font-weight: 600; margin: 20px 0 8px; }
+  h1 { font-size: 22px; font-weight: 600; margin: 20px 0 10px; }
+  .badge {
+    display: inline-block; padding: 4px 12px; border-radius: 999px;
+    border: 1px solid var(--ink); font-size: 13px; font-weight: 600; letter-spacing: 0.02em;
+  }
   p { font-size: 15px; color: var(--ink-soft); }
+  .lead { margin-top: 16px; color: var(--ink); font-weight: 600; }
+  .detail { margin-top: 12px; font-size: 14px; }
   .btn {
     display: inline-block; margin-top: 28px; padding: 14px 28px; min-height: 44px;
     border-radius: 999px; background: var(--ink); color: var(--bg);
@@ -40,22 +46,29 @@
 <main>
   <img src="/images/icon.png" alt="">
   <h1>Coffee Palette</h1>
-  <p id="lead">このQRコードは Coffee Palette アプリで読み取ると、コーヒーの情報をそのまま記録できます。</p>
-  <a class="btn" id="dl" href="https://apps.apple.com/app/id6762002751">App Store で入手</a>
-  <p class="note" id="note">iPhone 用アプリです。インストール後、もう一度このQRコードを読み取ってください。</p>
+  <span class="badge" id="badge">iPhone 専用アプリ</span>
+  <p class="lead" id="lead">Coffee Palette は iPhone 専用のコーヒー記録アプリです。Android 版はありません。</p>
+  <p class="detail" id="detail">このQRコードには、ロースター・産地・フレーバーなどのコーヒーの情報がそのまま入っています。そのため、読み取ったときのURLが長くなっています。</p>
+  <a class="btn" id="dl" href="https://apps.apple.com/app/id6762002751">App Store で見る</a>
+  <p class="note" id="note">iPhone をお持ちの方は、App Store からアプリを入れて、もう一度このQRコードを読み取ってください。</p>
 </main>
 <script>
   // コーヒーの情報は URL の # 以降に入っており、サーバーには送られない。
   // このページはそれを読まず、App Store へ案内するだけ
-  var en = !/^ja\b/i.test(navigator.language || '');
-  if (en) {
+  if (!/^ja\b/i.test(navigator.language || '')) {
     document.documentElement.lang = 'en';
-    document.getElementById('lead').textContent = 'Scan this QR code with the Coffee Palette app to log this coffee in one tap.';
-    document.getElementById('dl').textContent = 'Download on the App Store';
-    document.getElementById('note').textContent = 'Coffee Palette is an iPhone app. After installing, scan this QR code again.';
+    var en = {
+      badge: 'iPhone only',
+      lead: 'Coffee Palette is a coffee journal app for iPhone only. It is not available for Android.',
+      detail: 'This QR code contains the coffee details \u2014 roaster, origin, flavors and more \u2014 which is why the link is so long.',
+      dl: 'View on the App Store',
+      note: 'If you have an iPhone, install the app from the App Store and scan this QR code again.'
+    };
+    for (var id in en) document.getElementById(id).textContent = en[id];
   }
   // アプリが入っていれば iOS がここに来る前にアプリを開く。
-  // ここに来たのは未インストールの iPhone なので、App Store へそのまま移る
+  // ここに来たのは未インストールの iPhone なので、App Store へそのまま移る。
+  // Android・PC ではこのページを表示したままにする（iPhone 専用であることを伝える）
   var ios = /iPhone|iPad|iPod/.test(navigator.userAgent) ||
     (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   if (ios) location.replace('https://apps.apple.com/app/id6762002751');
