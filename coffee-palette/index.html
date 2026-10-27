@@ -3,12 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Coffee Palette — スペシャルティコーヒーの記録アプリ</title>
-<meta name="description" content="一杯の個性をパレットに。自分だけのコーヒーログ。スペシャルティコーヒーの味わいを直感的に記録・管理できるiOSアプリ。">
-<meta property="og:title" content="Coffee Palette">
-<meta property="og:description" content="一杯の個性をパレットに。自分だけのコーヒーログ。">
-<meta property="og:image" content="/images/icon.png">
+<title>#coffee — スペシャルティコーヒーログ</title>
+<meta name="description" content="今日の一杯に、#coffee。70種類以上のフレーバーノートと9段階のカラースコアで、スペシャルティコーヒーの感動を記録できるiOSアプリ（旧名：Coffee Palette）。">
+<meta property="og:title" content="#coffee — スペシャルティコーヒーログ">
+<meta property="og:description" content="今日の一杯に、#coffee。スペシャルティコーヒーの感動を、あなただけのログに。">
+<meta property="og:image" content="https://cafemocha9.github.io/images/icon.png">
 <meta property="og:type" content="website">
+<meta name="apple-itunes-app" content="app-id=6762002751">
 <link rel="icon" href="/images/icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -27,6 +28,10 @@
     --ink-faint:   #b5ada2;
     --accent-soft: rgba(20,18,15,0.04);
 
+    /* #coffee のブランドカラー。#C0FFEE は白地で淡すぎるので、文字には使わず面と線にだけ使う */
+    --brand:       #C0FFEE;
+    --brand-ink:   #3F0011;
+
     --serif: 'Fraunces', 'Noto Sans JP', serif;
     --sans:  'Inter', 'Noto Sans JP', sans-serif;
 
@@ -43,7 +48,7 @@
     -webkit-font-smoothing: antialiased;
   }
 
-  ::selection { background: var(--ink); color: var(--bg); }
+  ::selection { background: var(--brand); color: var(--brand-ink); }
 
   .shell {
     max-width: 720px;
@@ -127,27 +132,45 @@
     width: 96px;
     height: 96px;
     border-radius: 22px;
-    margin: 0 auto var(--s-5);
+    margin: 0 auto var(--s-4);
     display: block;
-    box-shadow: 0 8px 32px rgba(20,18,15,0.12);
+    box-shadow: 0 8px 32px rgba(63,0,17,0.14);
+  }
+  .brand-pill {
+    display: inline-block;
+    background: var(--brand);
+    color: var(--brand-ink);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 999px;
+    margin-bottom: var(--s-4);
   }
   .hero-title {
     font-family: var(--serif);
     font-weight: 300;
     font-size: clamp(36px, 6vw, 52px);
-    line-height: 1.1;
+    line-height: 1.15;
     letter-spacing: -0.03em;
     color: var(--ink);
     margin-bottom: var(--s-3);
     font-variation-settings: "opsz" 72;
   }
   .hero-title em { font-style: italic; color: var(--ink-mute); }
+  /* 「#coffee」は小文字のブランド名。強調はイタリックにせず、ブランド色の下線で示す */
+  .hero-title .wordmark {
+    font-style: normal;
+    color: var(--ink);
+    background: linear-gradient(transparent 68%, var(--brand) 68%, var(--brand) 92%, transparent 92%);
+    padding: 0 0.06em;
+  }
   .hero-sub {
     font-size: 17px;
     color: var(--ink-soft);
-    line-height: 1.7;
+    line-height: 1.8;
     margin: 0 auto var(--s-6);
-    max-width: 24em;
+    max-width: 26em;
   }
   .dl-btn {
     display: inline-flex;
@@ -163,6 +186,12 @@
     transition: opacity 0.25s ease;
   }
   .dl-btn:hover { opacity: 0.75; }
+  .formerly {
+    margin-top: var(--s-3);
+    font-size: 12px;
+    color: var(--ink-mute);
+    letter-spacing: 0.04em;
+  }
 
   /* ── Rule ── */
   .rule { height: 0.5px; background: var(--rule); }
@@ -182,22 +211,23 @@
     content: '';
     display: inline-block;
     width: 24px;
-    height: 0.5px;
-    background: var(--ink-mute);
+    height: 2px;
+    border-radius: 1px;
+    background: var(--brand);
   }
 
   /* ── Screenshots ── */
   .screenshots-section { padding: var(--s-8) 0; }
   .screenshots-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: var(--s-3);
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--s-4) var(--s-3);
   }
   .screenshot {
     border-radius: 16px;
     overflow: hidden;
     background: var(--bg-elev);
-    aspect-ratio: 9 / 19.5;
+    aspect-ratio: 645 / 1398;
   }
   .screenshot img {
     width: 100%;
@@ -223,6 +253,20 @@
     font-size: 13px;
     color: var(--ink-faint);
     margin-bottom: var(--s-2);
+    display: flex;
+    align-items: center;
+    gap: var(--s-1);
+  }
+  .premium-tag {
+    font-family: var(--sans);
+    font-style: normal;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--brand-ink);
+    background: var(--brand);
+    padding: 2px 8px;
+    border-radius: 999px;
   }
   .feature-title {
     font-family: var(--serif);
@@ -238,6 +282,18 @@
     color: var(--ink-soft);
     line-height: 1.75;
   }
+
+  /* ── Premium ── */
+  .plan-note {
+    margin-top: var(--s-6);
+    padding: var(--s-3) var(--s-4);
+    border-radius: 12px;
+    background: var(--bg-elev);
+    font-size: 13px;
+    color: var(--ink-soft);
+    line-height: 1.8;
+  }
+  .plan-note strong { font-weight: 500; color: var(--ink); }
 
   /* ── About ── */
   .about-section { padding: var(--s-8) 0; }
@@ -257,6 +313,7 @@
     line-height: 1.85;
     max-width: 36em;
   }
+  .about-body + .about-body { margin-top: var(--s-2); }
   .about-footer {
     margin-top: var(--s-6);
     padding-top: var(--s-5);
@@ -266,13 +323,6 @@
     gap: var(--s-4);
     flex-wrap: wrap;
   }
-  .link-muted {
-    font-size: 13px;
-    color: var(--ink-mute);
-    text-decoration: none;
-    transition: color 0.25s ease;
-  }
-  .link-muted:hover { color: var(--ink); }
 
   /* ── Footer ── */
   footer {
@@ -294,6 +344,7 @@
   .foot-links {
     display: flex;
     gap: var(--s-3);
+    flex-wrap: wrap;
   }
   .foot-links a {
     font-size: 11px;
@@ -313,6 +364,11 @@
   .show-en p.ja, .show-en div.ja { display: none; }
   p.en, div.en { display: none; }
   .show-en p.en, .show-en div.en { display: block; }
+  /* スクリーンショットは言語ごとに別の画像。上の div.ja / div.en（block）より強い指定で grid のまま切り替える */
+  div.screenshots-grid.ja { display: grid; }
+  div.screenshots-grid.en { display: none; }
+  .show-en div.screenshots-grid.ja { display: none; }
+  .show-en div.screenshots-grid.en { display: grid; }
 
   /* ── Fade in ── */
   .fade {
@@ -325,16 +381,18 @@
   .fade.d3 { animation-delay: 0.25s; }
   .fade.d4 { animation-delay: 0.35s; }
   @keyframes fadeIn { to { opacity: 1; transform: translateY(0); } }
+  @media (prefers-reduced-motion: reduce) {
+    .fade { animation: none; opacity: 1; transform: none; }
+  }
 
   /* ── Responsive ── */
   @media (max-width: 640px) {
-    .shell { padding: 0 var(--s-3); }
+    .shell { padding: 0 var(--s-2); }
     .hero { padding: var(--s-6) 0; }
-    .nav-dl span { display: none; }
-    .screenshots-grid { grid-template-columns: repeat(2, 1fr); gap: var(--s-2); }
+    .screenshots-grid { grid-template-columns: repeat(2, 1fr); gap: var(--s-3) var(--s-2); }
     .screenshot { border-radius: 10px; }
     .features-grid { grid-template-columns: 1fr; gap: var(--s-4); }
-    .about-footer { flex-direction: column; gap: var(--s-3); }
+    .about-footer { flex-direction: column; align-items: flex-start; gap: var(--s-3); }
   }
 </style>
 </head>
@@ -343,13 +401,13 @@
 <nav>
   <div class="shell nav-inner">
     <a class="nav-logo" href="#">
-      <img src="/images/icon.png" alt="Coffee Palette">
-      <span class="nav-logo-name">Coffee Palette</span>
+      <img src="/images/icon.png" alt="">
+      <span class="nav-logo-name">#coffee</span>
     </a>
     <div class="nav-right">
       <button class="lang-btn" onclick="toggleLang()" id="langBtn">EN</button>
-      <a class="nav-dl" href="https://apps.apple.com/us/app/coffee-palette-スペシャルティコーヒーの記録/id6762002751" target="_blank" rel="noopener">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+      <a class="nav-dl dl-link" href="https://apps.apple.com/jp/app/id6762002751" target="_blank" rel="noopener">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
         <span class="ja">ダウンロード</span><span class="en">Download</span>
       </a>
     </div>
@@ -358,23 +416,29 @@
 
 <!-- ══════ HERO ══════ -->
 <header class="shell hero">
-  <img class="hero-icon fade d1" src="/images/icon.png" alt="Coffee Palette アイコン">
+  <img class="hero-icon fade d1" src="/images/icon.png" alt="#coffee のアイコン">
+
+  <div class="fade d1"><span class="brand-pill">Specialty Coffee Log</span></div>
 
   <h1 class="hero-title fade d2">
-    <span class="ja">一杯の個性を、<br><em>パレットに。</em></span>
-    <span class="en">Your coffee,<br><em>your palette.</em></span>
+    <span class="ja">今日の一杯に、<br><em class="wordmark">#coffee</em>。</span>
+    <span class="en">Tag today's cup.<br><em class="wordmark">#coffee</em></span>
   </h1>
 
   <p class="hero-sub fade d3">
-    <span class="ja">自分だけのコーヒーログ。</span>
-    <span class="en">A personal log for specialty coffee.</span>
+    <span class="ja">70種類以上のフレーバーノート、9段階のカラースコア、産地や生産者までの詳細な情報、QRコードでのシェア。スペシャルティコーヒーの感動を、あなただけのログとして積み重ねていきませんか？</span>
+    <span class="en">70+ flavor notes, 9-level color scores, origin and producer details, and QR sharing. Build a log of the cups that move you.</span>
   </p>
 
   <div class="fade d4">
-    <a class="dl-btn" href="https://apps.apple.com/us/app/coffee-palette-スペシャルティコーヒーの記録/id6762002751" target="_blank" rel="noopener">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+    <a class="dl-btn dl-link" href="https://apps.apple.com/jp/app/id6762002751" target="_blank" rel="noopener">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
       <span class="ja">App Storeでダウンロード</span><span class="en">Download on the App Store</span>
     </a>
+    <p class="formerly">
+      <span class="ja">読み方：ハッシュコーヒー ／ 旧名：Coffee Palette</span>
+      <span class="en">Formerly Coffee Palette</span>
+    </p>
   </div>
 </header>
 
@@ -385,19 +449,21 @@
   <p class="eyebrow">
     <span class="ja">スクリーンショット</span><span class="en">Screenshots</span>
   </p>
-  <div class="screenshots-grid">
-    <div class="screenshot">
-      <img src="/images/screen1.png" alt="Coffee Palette スクリーンショット 1">
-    </div>
-    <div class="screenshot">
-      <img src="/images/screen2.png" alt="Coffee Palette スクリーンショット 2">
-    </div>
-    <div class="screenshot">
-      <img src="/images/screen3.png" alt="Coffee Palette スクリーンショット 3">
-    </div>
-    <div class="screenshot">
-      <img src="/images/screen4.png" alt="Coffee Palette スクリーンショット 4">
-    </div>
+  <div class="screenshots-grid ja">
+    <div class="screenshot"><img src="screens/ja-1.webp" width="645" height="1398" loading="lazy" alt="記録画面：今日の一杯に、#coffee。何杯でも記録できる"></div>
+    <div class="screenshot"><img src="screens/ja-2.webp" width="645" height="1398" loading="lazy" alt="フレーバー選択：70種類以上のフレーバーで、味と香りを直感的に彩る"></div>
+    <div class="screenshot"><img src="screens/ja-3.webp" width="645" height="1398" loading="lazy" alt="QRコード：スキャンひとつで、豆の情報がそのまま届く"></div>
+    <div class="screenshot"><img src="screens/ja-4.webp" width="645" height="1398" loading="lazy" alt="検索：ロースター名・生産国・場所で瞬時に検索できる"></div>
+    <div class="screenshot"><img src="screens/ja-5.webp" width="645" height="1398" loading="lazy" alt="並び替え：増えた記録も、ひと目で整理できる"></div>
+    <div class="screenshot"><img src="screens/ja-6.webp" width="645" height="1398" loading="lazy" alt="バックアップ：大切な記録を、バックアップで守る"></div>
+  </div>
+  <div class="screenshots-grid en">
+    <div class="screenshot"><img src="screens/en-1.webp" width="645" height="1398" loading="lazy" alt="Records: Tag today's cup. #coffee Log as many cups as you like."></div>
+    <div class="screenshot"><img src="screens/en-2.webp" width="645" height="1398" loading="lazy" alt="Flavors: 70+ flavor notes. Tag every taste and aroma."></div>
+    <div class="screenshot"><img src="screens/en-3.webp" width="645" height="1398" loading="lazy" alt="QR code: One scan. Every bean detail, delivered."></div>
+    <div class="screenshot"><img src="screens/en-4.webp" width="645" height="1398" loading="lazy" alt="Search: Instantly search by roaster name, origin, or location."></div>
+    <div class="screenshot"><img src="screens/en-5.webp" width="645" height="1398" loading="lazy" alt="Sort: Your growing collection, always organized."></div>
+    <div class="screenshot"><img src="screens/en-6.webp" width="645" height="1398" loading="lazy" alt="Backup: Your coffee log, safely backed up."></div>
   </div>
 </section>
 
@@ -412,43 +478,68 @@
     <div class="feature-item">
       <div class="feature-num">01</div>
       <h3 class="feature-title">
-        <span class="ja">カラフルな記録</span><span class="en">Colorful Logging</span>
+        <span class="ja">何杯でも、詳しく記録</span><span class="en">Log Every Cup in Detail</span>
       </h3>
       <p class="feature-desc">
-        <span class="ja">コーヒーをパレットのようにカラフルに記録。一杯ごとの個性を色で表現します。</span>
-        <span class="en">Log your coffee as colorfully as a painter's palette. Express each cup's character through color.</span>
+        <span class="ja">記録数は無制限。ロースター、生産国、農園、生産者、標高、品種、精製方法、焙煎度、抽出方法まで、スペシャルティコーヒーに必要な情報を残せます。</span>
+        <span class="en">Unlimited records. Capture roaster, origin, farm, producer, altitude, variety, process, roast, and brew method — everything specialty coffee calls for.</span>
       </p>
     </div>
     <div class="feature-item">
       <div class="feature-num">02</div>
       <h3 class="feature-title">
-        <span class="ja">フレーバーホイール</span><span class="en">Flavor Wheel</span>
+        <span class="ja">70種類以上のフレーバー</span><span class="en">70+ Flavor Notes</span>
       </h3>
       <p class="feature-desc">
-        <span class="ja">独自の7点フレーバーホイールで、味わいを直感的に評価・記録できます。</span>
-        <span class="en">A seven-point flavor wheel for intuitive and consistent tasting notes.</span>
+        <span class="ja">14のカテゴリから、タグを選ぶだけで味と香りを記録。ひらがなや英語でも検索でき、言葉にしにくい風味も色とりどりのタグで表せます。</span>
+        <span class="en">Tag taste and aroma from 14 categories. Search in English or Japanese, and express even subtle flavors with colorful tags.</span>
       </p>
     </div>
     <div class="feature-item">
       <div class="feature-num">03</div>
       <h3 class="feature-title">
-        <span class="ja">QRコードで共有</span><span class="en">QR Sharing</span>
+        <span class="ja">9段階のカラー評価</span><span class="en">9-Level Color Ratings</span>
       </h3>
       <p class="feature-desc">
-        <span class="ja">記録したコーヒーをQRコードで簡単に共有。お気に入りの一杯を伝えましょう。</span>
-        <span class="en">Share your coffee records instantly via QR code. Pass on your favorite finds.</span>
+        <span class="ja">味のトーン（酸味〜苦味）、ボディ（軽い〜重い）、総合評価をドットで記録。一目で味わいの特徴がわかります。</span>
+        <span class="en">Rate tone (bright to bold), body (light to rich), and overall score with color dots. See each cup's character at a glance.</span>
       </p>
     </div>
     <div class="feature-item">
       <div class="feature-num">04</div>
       <h3 class="feature-title">
-        <span class="ja">自分だけのデータベース</span><span class="en">Personal Database</span>
+        <span class="ja">検索・並び替え・お気に入り</span><span class="en">Search, Sort &amp; Favorites</span>
       </h3>
       <p class="feature-desc">
-        <span class="ja">飲んだコーヒーを蓄積し、自分だけのコーヒーデータベースを育てていきましょう。</span>
-        <span class="en">Build and grow your own personal coffee database, cup by cup.</span>
+        <span class="ja">ロースター名、生産国、飲んだ場所で瞬時に検索。飲んだ日やスコアで並び替え、お気に入りだけの絞り込みもできます。</span>
+        <span class="en">Search by roaster, origin, or where you drank it. Sort by date or score, and filter to just your favorites.</span>
       </p>
     </div>
+    <div class="feature-item">
+      <div class="feature-num">05 <span class="premium-tag">Premium</span></div>
+      <h3 class="feature-title">
+        <span class="ja">QRコードでシェア</span><span class="en">Share by QR Code</span>
+      </h3>
+      <p class="feature-desc">
+        <span class="ja">コーヒーの情報をQRコードに。テイスティングカードやオンラインショップに載せれば、読み取った人がその場でアプリに保存できます。読み取りは無料プランでも使えます。</span>
+        <span class="en">Turn coffee details into a QR code for tasting cards or your online shop. Anyone who scans it can save the info to the app — scanning is free.</span>
+      </p>
+    </div>
+    <div class="feature-item">
+      <div class="feature-num">06</div>
+      <h3 class="feature-title">
+        <span class="ja">バックアップ・復元</span><span class="en">Backup &amp; Restore</span>
+      </h3>
+      <p class="feature-desc">
+        <span class="ja">ワンタップで端末内にバックアップ・復元。iCloud Driveやファイルアプリへの書き出しも。Premiumなら、記録を変えるたびに自動で保存されます。</span>
+        <span class="en">Back up and restore with a single tap, or export to iCloud Drive or the Files app. With Premium, backups save automatically whenever you change a record.</span>
+      </p>
+    </div>
+  </div>
+
+  <div class="plan-note">
+    <span class="ja"><strong>Premiumプラン（¥400/月）</strong>　QRコードの作成と自動バックアップが使えます。記録・フレーバー・評価・検索などの基本機能は、すべて無料で使えます。</span>
+    <span class="en"><strong>Premium (monthly subscription)</strong> — unlocks QR code creation and automatic backup. Logging, flavors, ratings, search, and every other core feature are free. Price varies by region.</span>
   </div>
 </section>
 
@@ -460,16 +551,20 @@
     <span class="ja">アプリについて</span><span class="en">About the App</span>
   </p>
   <p class="about-lead">
-    <span class="ja">スペシャルティコーヒーの味わいを、<em>直感的に。</em></span>
-    <span class="en">Specialty coffee flavors,<br><em>captured intuitively.</em></span>
+    <span class="ja">スペシャルティコーヒーの感動を、<br><em>あなただけのログに。</em></span>
+    <span class="en">The cups that move you,<br><em>in a log of your own.</em></span>
   </p>
   <p class="about-body">
-    <span class="ja">Coffee Paletteは、スペシャルティコーヒーの味わいを直感的に記録・管理できるアプリです。飲んだコーヒーの情報をその場で記録し、自分だけのコーヒーデータベースを育てましょう。</span>
-    <span class="en">Coffee Palette is an app for intuitively logging and managing the flavors of your specialty coffee. Record each cup as you drink it, and grow your own personal coffee database.</span>
+    <span class="ja">#coffee（ハッシュコーヒー）は、スペシャルティコーヒーの個性的な味わいを直感的に記録・管理できるアプリです。名前は、ブランドカラーのカラーコード「#C0FFEE」から生まれました。</span>
+    <span class="en">#coffee is an app for intuitively recording and managing the unique flavors of specialty coffee. Its name comes from our brand color, hex code #C0FFEE.</span>
+  </p>
+  <p class="about-body">
+    <span class="ja">記録はお使いのiPhoneの中に保存され、開発者のサーバーに送信されることはありません。2026年10月、「Coffee Palette」から「#coffee」に名前が変わりました。これまでの記録はそのままお使いいただけます。</span>
+    <span class="en">Your records stay on your iPhone and are never sent to the developer's servers. In October 2026, Coffee Palette was renamed #coffee — all existing records carry over as they are.</span>
   </p>
   <div class="about-footer">
-    <a class="dl-btn" href="https://apps.apple.com/us/app/coffee-palette-スペシャルティコーヒーの記録/id6762002751" target="_blank" rel="noopener">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+    <a class="dl-btn dl-link" href="https://apps.apple.com/jp/app/id6762002751" target="_blank" rel="noopener">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
       <span class="ja">App Storeでダウンロード</span><span class="en">Download on the App Store</span>
     </a>
   </div>
@@ -482,6 +577,7 @@
       <a href="https://cafemocha9.github.io/privacy-policy/" target="_blank" rel="noopener">
         <span class="ja">プライバシーポリシー</span><span class="en">Privacy Policy</span>
       </a>
+      <a href="https://cafemocha9.github.io/privacy-policy/tokusho/" target="_blank" rel="noopener" class="ja">特定商取引法に基づく表示</a>
       <a href="/">
         <span class="ja">開発者について</span><span class="en">Developer</span>
       </a>
@@ -490,12 +586,22 @@
 </footer>
 
 <script>
-  function toggleLang() {
+  // 日本のストアは /jp/、それ以外は国を指定しない（Web 版 App Store は国の指定がないと米国ストアになる）
+  const STORE_JA = 'https://apps.apple.com/jp/app/id6762002751';
+  const STORE_EN = 'https://apps.apple.com/app/id6762002751';
+
+  function applyLang(en) {
     const pg = document.getElementById('pg');
-    const btn = document.getElementById('langBtn');
-    pg.classList.toggle('show-en');
-    btn.textContent = pg.classList.contains('show-en') ? 'JA' : 'EN';
+    pg.classList.toggle('show-en', en);
+    document.documentElement.lang = en ? 'en' : 'ja';
+    document.getElementById('langBtn').textContent = en ? 'JA' : 'EN';
+    document.querySelectorAll('.dl-link').forEach(a => { a.href = en ? STORE_EN : STORE_JA; });
   }
+  function toggleLang() {
+    applyLang(!document.getElementById('pg').classList.contains('show-en'));
+  }
+  // 日本語以外の端末では、最初から英語で表示する
+  applyLang(!/^ja\b/i.test(navigator.language || ''));
 </script>
 
 </body>
