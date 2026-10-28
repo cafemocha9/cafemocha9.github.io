@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Amber Log — ウイスキーアーカイブ</title>
-<meta name="description" content="3ステップで記録するウイスキーログ。香り・味わい・余韻をシンプルに残せるiOSアプリ。">
+<meta name="description" content="3ステップで記録するウイスキーログ。銘柄・飲み方・味わいを残せるiOSアプリ。">
 <meta property="og:title" content="Amber Log">
 <meta property="og:description" content="3ステップで記録するウイスキーログ。">
 <meta property="og:type" content="website">
@@ -171,6 +171,49 @@
     background: var(--ink-mute);
   }
 
+  /* ── Screenshots ── */
+  .screenshots-section { padding: var(--s-8) 0; }
+  .screenshots-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--s-4) var(--s-3);
+  }
+  .shot { margin: 0; }
+  .screenshot {
+    border-radius: 16px;
+    overflow: hidden;
+    background: var(--bg-elev);
+    aspect-ratio: 645 / 1398;
+  }
+  .screenshot img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .shot-caption { padding-top: var(--s-2); }
+  .shot-step {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 13px;
+    color: var(--ink-faint);
+    margin-bottom: 4px;
+  }
+  .shot-title {
+    font-family: var(--serif);
+    font-weight: 300;
+    font-size: 17px;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    line-height: 1.3;
+    margin-bottom: 4px;
+  }
+  .shot-desc {
+    font-size: 13px;
+    color: var(--ink-soft);
+    line-height: 1.7;
+  }
+
   /* ── Features ── */
   .features-section { padding: var(--s-8) 0; }
   .features-grid {
@@ -278,6 +321,10 @@
   .show-en p.ja, .show-en div.ja { display: none; }
   p.en, div.en { display: none; }
   .show-en p.en, .show-en div.en { display: block; }
+  div.screenshots-grid.ja { display: grid; }
+  div.screenshots-grid.en { display: none; }
+  .show-en div.screenshots-grid.ja { display: none; }
+  .show-en div.screenshots-grid.en { display: grid; }
 
   /* ── Fade in ── */
   .fade {
@@ -296,6 +343,21 @@
     .shell { padding: 0 var(--s-3); }
     .hero { padding: var(--s-6) 0; }
     .nav-dl span { display: none; }
+    .screenshots-grid {
+      grid-template-columns: none;
+      grid-auto-flow: column;
+      grid-auto-columns: 62%;
+      gap: var(--s-2);
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+      margin: 0 calc(-1 * var(--s-3));
+      padding: 0 var(--s-3);
+      scroll-padding: 0 var(--s-3);
+    }
+    .screenshots-grid::-webkit-scrollbar { display: none; }
+    .shot { scroll-snap-align: start; }
+    .screenshot { border-radius: 10px; }
     .features-grid { grid-template-columns: 1fr; gap: var(--s-4); }
     .about-footer { flex-direction: column; gap: var(--s-3); }
   }
@@ -340,6 +402,67 @@
 
 <div class="rule"></div>
 
+<!-- ══════ SCREENSHOTS ══════ -->
+<section class="shell screenshots-section">
+  <p class="eyebrow">
+    <span class="ja">スクリーンショット</span><span class="en">Screenshots</span>
+  </p>
+  <div class="screenshots-grid ja">
+    <figure class="shot">
+      <div class="screenshot"><img src="screens/ja-1.webp" width="645" height="1398" loading="lazy" alt="ステップ1：銘柄を入力するだけ。最近の銘柄からも選べる"></div>
+      <figcaption class="shot-caption">
+        <p class="shot-step">Step 01</p>
+        <p class="shot-title">銘柄を入力</p>
+        <p class="shot-desc">銘柄名を入れるだけ。最近飲んだ銘柄から選ぶこともできます。</p>
+      </figcaption>
+    </figure>
+    <figure class="shot">
+      <div class="screenshot"><img src="screens/ja-2.webp" width="645" height="1398" loading="lazy" alt="ステップ2：ストレート・ロック・ハイボールなど、飲み方をタップで選ぶ"></div>
+      <figcaption class="shot-caption">
+        <p class="shot-step">Step 02</p>
+        <p class="shot-title">飲み方を選ぶ</p>
+        <p class="shot-desc">ストレート、ロック、ハイボールなど6つのスタイルからタップひとつで。</p>
+      </figcaption>
+    </figure>
+    <figure class="shot">
+      <div class="screenshot"><img src="screens/ja-3.webp" width="645" height="1398" loading="lazy" alt="ステップ3：フレーバー・ボディ・評価をスライダーで記録"></div>
+      <figcaption class="shot-caption">
+        <p class="shot-step">Step 03</p>
+        <p class="shot-title">味わいを記録</p>
+        <p class="shot-desc">フレーバー、ボディ、評価をスライダーで。記憶に残る一杯には印を付けられます。</p>
+      </figcaption>
+    </figure>
+  </div>
+  <div class="screenshots-grid en">
+    <figure class="shot">
+      <div class="screenshot"><img src="screens/en-1.webp" width="645" height="1398" loading="lazy" alt="Step 1: Just enter the brand name, or pick a recent dram."></div>
+      <figcaption class="shot-caption">
+        <p class="shot-step">Step 01</p>
+        <p class="shot-title">Enter the name</p>
+        <p class="shot-desc">Just type the brand name, or pick from your recent drams.</p>
+      </figcaption>
+    </figure>
+    <figure class="shot">
+      <div class="screenshot"><img src="screens/en-2.webp" width="645" height="1398" loading="lazy" alt="Step 2: Tap to choose how you're drinking it — neat, on the rocks, highball and more."></div>
+      <figcaption class="shot-caption">
+        <p class="shot-step">Step 02</p>
+        <p class="shot-title">Choose your style</p>
+        <p class="shot-desc">Neat, on the rocks, highball and more. Six styles, one tap.</p>
+      </figcaption>
+    </figure>
+    <figure class="shot">
+      <div class="screenshot"><img src="screens/en-3.webp" width="645" height="1398" loading="lazy" alt="Step 3: Record flavor, body and rating with simple sliders."></div>
+      <figcaption class="shot-caption">
+        <p class="shot-step">Step 03</p>
+        <p class="shot-title">Record the taste</p>
+        <p class="shot-desc">Set flavor, body and rating with sliders. Mark the ones worth remembering.</p>
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<div class="rule"></div>
+
 <!-- ══════ FEATURES ══════ -->
 <section class="shell features-section">
   <p class="eyebrow">
@@ -352,28 +475,28 @@
         <span class="ja">選ぶ</span><span class="en">Choose</span>
       </h3>
       <p class="feature-desc">
-        <span class="ja">ボトル名・蒸留所・国など基本情報を入力。飲んだウイスキーを素早く記録します。</span>
-        <span class="en">Enter the bottle name, distillery, and origin. Quickly log the whisky you're drinking.</span>
+        <span class="ja">今夜の一杯の銘柄を入力。スコッチやジャパニーズなどの種類は任意で選べます。最近の銘柄ならワンタップです。</span>
+        <span class="en">Enter tonight's dram. Add the type, such as Scotch or Japanese, if you like. Recent drams are one tap away.</span>
       </p>
     </div>
     <div class="feature-item">
       <div class="feature-num">02</div>
       <h3 class="feature-title">
-        <span class="ja">感じる</span><span class="en">Taste</span>
+        <span class="ja">注ぐ</span><span class="en">Pour</span>
       </h3>
       <p class="feature-desc">
-        <span class="ja">香り・味わい・余韻の3軸でテイスティングノートを記録。直感的に評価できます。</span>
-        <span class="en">Record tasting notes across three axes: nose, palate, and finish. Rate each intuitively.</span>
+        <span class="ja">ストレート、ロック、水割り、ハイボール、トワイスアップ、ミストの6つから飲み方を選びます。</span>
+        <span class="en">Pick how you're drinking it: neat, on the rocks, with water, highball, twice up or mist.</span>
       </p>
     </div>
     <div class="feature-item">
       <div class="feature-num">03</div>
       <h3 class="feature-title">
-        <span class="ja">残す</span><span class="en">Archive</span>
+        <span class="ja">感じる</span><span class="en">Taste</span>
       </h3>
       <p class="feature-desc">
-        <span class="ja">記録を蓄積して自分だけのウイスキーアーカイブに。過去のボトルをいつでも振り返れます。</span>
-        <span class="en">Build your personal whisky archive over time. Revisit any bottle from your history.</span>
+        <span class="ja">フレーバー（フルーティ〜スモーキー）、ボディ（ライト〜リッチ）、3段階の評価をスライダーで記録します。記憶に残る一杯には印を付けられます。</span>
+        <span class="en">Set flavor (fruity to smoky), body (light to rich) and a three-level rating with sliders. Mark the ones worth remembering.</span>
       </p>
     </div>
   </div>
